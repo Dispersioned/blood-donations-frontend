@@ -11,20 +11,24 @@ const AsideLayout = styled('aside')`
   box-shadow: 3px 0 5px rgba(0, 0, 0, 0.15);
 `;
 
+export const NavLink = styled(Button)`
+  width: 100%;
+`;
+
 export function Aside() {
-  const links = [{ label: 'Главная', url: ROUTES.home }];
+  const links = [{ label: 'Профиль', url: ROUTES.home }];
 
   return (
     <AsideLayout>
       <nav>
-        <ul style={{ listStyleType: 'none' }}>
+        <ul style={{ listStyleType: 'none', width: 200, display: 'flex', flexDirection: 'column' }}>
           {links.map((link) => (
             <li key={link.url}>
-              <Button>{link.label}</Button>
+              <NavLink>{link.label}</NavLink>
             </li>
           ))}
           <li>
-            <Button onClick={() => exit()}>Выйти</Button>
+            <NavLink onClick={() => exit()}>Выйти</NavLink>
           </li>
         </ul>
       </nav>
