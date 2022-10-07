@@ -4,11 +4,26 @@ import { AuthDto, IUser } from 'shared/types';
 
 export const login = createEvent<AuthDto>();
 export const register = createEvent<AuthDto>();
+export const checkToken = createEvent();
+const validateToken = createEvent<string>();
+export const exit = createEvent();
 
 const loginFx = createEffect(async (data: AuthDto) => {
   const { user, token } = await loginUser(data.login, data.password);
   localStorage.setItem('token', token);
   return user;
+});
+const validateTokenFx = createEffect(async (token: string) => {
+  const { user } = await fetchMe(token);
+  return user;
+});
+const exitFx = createEffect(() => {
+  localStorage.removeItem('token');
+});
+
+sample({
+  clock: exit,
+  target: exitFx,
 });
 
 sample({
@@ -16,16 +31,9 @@ sample({
   target: loginFx,
 });
 
-export const checkToken = createEvent();
-const validateToken = createEvent<string>();
-
-const validateTokenFx = createEffect(async (token: string) => {
-  const { user } = await fetchMe(token);
-  return user;
-});
-
 const $token = createStore(localStorage.getItem('token'));
 export const $user = createStore<IUser | null>(null);
+$user.on(exit, () => null);
 
 sample({
   clock: checkToken,
