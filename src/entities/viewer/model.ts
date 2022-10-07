@@ -1,6 +1,6 @@
-import { createEffect, createEvent, sample } from 'effector';
-import { loginUser } from 'shared/api';
-import { AuthDto } from 'shared/types';
+import { createEffect, createEvent, createStore, sample } from 'effector';
+import { fetchMe, loginUser } from 'shared/api';
+import { AuthDto, IUser } from 'shared/types';
 
 export const login = createEvent<AuthDto>();
 export const register = createEvent<AuthDto>();
@@ -16,4 +16,31 @@ sample({
   target: loginFx,
 });
 
-// login.watch(console.log);
+export const checkToken = createEvent();
+const validateToken = createEvent<string>();
+
+const validateTokenFx = createEffect(async (token: string) => {
+  const { user } = await fetchMe(token);
+  return user;
+});
+
+const $token = createStore(localStorage.getItem('token'));
+export const $user = createStore<IUser | null>(null);
+
+sample({
+  clock: checkToken,
+  source: $token,
+  filter: (token): token is string => !!token,
+  target: validateToken,
+});
+
+sample({
+  clock: validateToken,
+  filter: validateTokenFx.pending.map((is) => !is),
+  target: validateTokenFx,
+});
+
+sample({
+  clock: [loginFx.doneData, validateTokenFx.doneData],
+  target: $user,
+});
