@@ -1,4 +1,5 @@
 import { Button, styled } from '@mui/material';
+import { exit } from 'entities/viewer';
 import React from 'react';
 import { ROUTES } from 'shared/config/routes';
 
@@ -23,7 +24,7 @@ export function Aside() {
             </li>
           ))}
           <li>
-            <Button>Выйти</Button>
+            <Button onClick={() => exit()}>Выйти</Button>
           </li>
         </ul>
       </nav>
