@@ -26,6 +26,8 @@ export const $authPending = createStore(true);
 export const $user = createStore<IUser | null>(null);
 $user.on(exit, () => null);
 
+$user.watch((u) => console.log('user', u));
+
 $authPending.on(loginFx.pending, (_, is) => is);
 $authPending.on(validateTokenFx.pending, (_, is) => is);
 
