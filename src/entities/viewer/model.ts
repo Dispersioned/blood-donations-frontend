@@ -21,12 +21,10 @@ const exitFx = createEffect(() => {
   localStorage.removeItem('token');
 });
 
-export const $authPending = createStore(true);
 const $token = createStore(localStorage.getItem('token'));
+export const $authPending = createStore(true);
 export const $user = createStore<IUser | null>(null);
 $user.on(exit, () => null);
-
-$authPending.watch((v) => console.log('pending', v));
 
 $authPending.on(loginFx.pending, (_, is) => is);
 $authPending.on(validateTokenFx.pending, (_, is) => is);
