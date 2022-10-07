@@ -10,7 +10,6 @@ import { PrivateRoute } from './PrivateRoute';
 
 export function Routing() {
   const navigate = useNavigate();
-  const user = useUnit($user);
 
   useEffect(() => {
     checkToken();

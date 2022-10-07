@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { fetchMe, loginUser } from 'shared/api';
-import { AuthDto, IUser } from 'shared/types';
+import { AuthDto, IRoleName, IUser } from 'shared/types';
 
 export const login = createEvent<AuthDto>();
 export const register = createEvent<AuthDto>();
@@ -24,7 +24,9 @@ const exitFx = createEffect(() => {
 const $token = createStore(localStorage.getItem('token'));
 export const $authPending = createStore(true);
 export const $user = createStore<IUser | null>(null);
+// nullable user is cutted by react router guards
 export const $definedUser = createStore<IUser>({} as IUser);
+export const $userRole = $user.map((v) => v?.role.value as IRoleName);
 
 sample({
   source: $user,
