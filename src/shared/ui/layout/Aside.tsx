@@ -1,7 +1,8 @@
-import { Button, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import { exit } from 'entities/viewer';
-import React from 'react';
 import { ROUTES } from 'shared/config/routes';
+
+import { NavLink } from './NavLink';
 
 const AsideLayout = styled('aside')`
   display: flex;
@@ -9,10 +10,6 @@ const AsideLayout = styled('aside')`
   padding: 30px 15px;
   background-color: #e9e9e9;
   box-shadow: 3px 0 5px rgba(0, 0, 0, 0.15);
-`;
-
-export const NavLink = styled(Button)`
-  width: 100%;
 `;
 
 export function Aside() {
@@ -23,13 +20,9 @@ export function Aside() {
       <nav>
         <ul style={{ listStyleType: 'none', width: 200, display: 'flex', flexDirection: 'column' }}>
           {links.map((link) => (
-            <li key={link.url}>
-              <NavLink>{link.label}</NavLink>
-            </li>
+            <NavLink key={link.url}>{link.label}</NavLink>
           ))}
-          <li>
-            <NavLink onClick={() => exit()}>Выйти</NavLink>
-          </li>
+          <NavLink onClick={() => exit()}>Выйти</NavLink>
         </ul>
       </nav>
     </AsideLayout>
