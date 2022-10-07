@@ -1,4 +1,6 @@
 export type IRoleName = 'DONOR' | 'PATIENT' | 'DOCTOR' | 'ADMIN';
+export type IBloodGroup = '' | 'A' | 'B' | 'AB';
+export type IBloodRhFactor = '+' | '-';
 
 export type IUser = {
   id: number;
@@ -10,8 +12,11 @@ export type IUser = {
   role: {
     id: number;
     value: IRoleName;
-    createdAt: Date;
-    updatedAt: Date;
+  };
+  blood: {
+    id: number;
+    group: IBloodGroup;
+    rhFactor: IBloodRhFactor;
   };
 };
 
