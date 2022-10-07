@@ -24,6 +24,14 @@ const exitFx = createEffect(() => {
 const $token = createStore(localStorage.getItem('token'));
 export const $authPending = createStore(true);
 export const $user = createStore<IUser | null>(null);
+export const $definedUser = createStore<IUser>({} as IUser);
+
+sample({
+  source: $user,
+  filter: (user): user is IUser => !!user,
+  target: $definedUser,
+});
+
 $user.on(exit, () => null);
 
 $user.watch((u) => console.log('user', u));
