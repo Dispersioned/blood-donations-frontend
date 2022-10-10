@@ -1,4 +1,4 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { createEffect, createEvent, createStore, sample, split } from 'effector';
 import { showError } from 'entities/messager';
 import { fetchMe, loginUser } from 'shared/api';
 import { AuthDto, IRoleName, IUser } from 'shared/types';
@@ -7,6 +7,7 @@ export const login = createEvent<AuthDto>();
 export const register = createEvent<AuthDto>();
 export const checkToken = createEvent();
 const validateToken = createEvent<string>();
+const invalidateToken = createEvent<any>();
 export const exit = createEvent();
 
 const loginFx = createEffect(async (data: AuthDto) => {
@@ -41,6 +42,7 @@ $user.watch((u) => console.log('user', u));
 
 $authPending.on(loginFx.pending, (_, is) => is);
 $authPending.on(validateTokenFx.pending, (_, is) => is);
+$authPending.on(invalidateToken, () => false);
 
 sample({
   clock: exit,
@@ -52,11 +54,17 @@ sample({
   target: loginFx,
 });
 
-sample({
+split({
   clock: checkToken,
   source: $token,
-  filter: (token): token is string => !!token,
-  target: validateToken,
+  match: {
+    exist: (token) => !!token,
+    nonexist: (token) => !token,
+  },
+  cases: {
+    exist: validateToken,
+    nonexist: invalidateToken,
+  },
 });
 
 sample({
