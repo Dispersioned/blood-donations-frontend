@@ -2,6 +2,7 @@ import { useUnit } from 'effector-react';
 import { $user, checkToken } from 'entities/viewer';
 import { Auth } from 'pages/auth';
 import { Home } from 'pages/home';
+import { Hospitals } from 'pages/hospitals';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
@@ -26,6 +27,7 @@ export function Routing() {
       <Route element={<PrivateRoute />}>
         <Route index element={<Home />} />
       </Route>
+      <Route path={ROUTES.hospitals} element={<Hospitals />} />
       <Route path={ROUTES.login} element={<Auth type="login" />} />
       <Route path={ROUTES.register} element={<Auth type="register" />} />
       <Route path="*" element={<Navigate to="/" />} />
