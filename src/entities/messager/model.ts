@@ -1,11 +1,13 @@
 import { AlertColor } from '@mui/material';
 import { createEvent, createStore } from 'effector';
 
-export const showMessage = createEvent<{
+type Message = {
   type?: AlertColor;
   msg: string;
-}>();
-export const showError = showMessage.map((payload) => ({ ...payload, type: 'error' }));
+};
+
+export const showMessage = createEvent<Message>();
+export const showError = showMessage.prepend<Message>((payload) => ({ ...payload, type: 'error' }));
 export const closeMessage = createEvent();
 
 export const $shown = createStore(false);
