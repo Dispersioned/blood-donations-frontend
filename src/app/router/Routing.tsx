@@ -20,17 +20,18 @@ export function Routing() {
 
   useEffect(() => {
     if (user) navigate(ROUTES.home);
-  }, [user, navigate]);
+    // do not include navigate in deps array
+  }, [user]);
 
   return (
     <Routes>
       <Route element={<PrivateRoute />}>
         <Route index element={<Home />} />
+        <Route path={ROUTES.hospitals} element={<Hospitals />} />
       </Route>
-      <Route path={ROUTES.hospitals} element={<Hospitals />} />
       <Route path={ROUTES.login} element={<Auth type="login" />} />
       <Route path={ROUTES.register} element={<Auth type="register" />} />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to={ROUTES.login} />} />
     </Routes>
   );
 }

@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import { exit } from 'entities/viewer';
-import { LINKS, ROUTES } from 'shared/config/routes';
+import { Link } from 'react-router-dom';
+import { LINKS } from 'shared/config/routes';
 
 import { NavLink } from './NavLink';
 
@@ -15,10 +16,13 @@ const AsideLayout = styled('aside')`
 export function Aside() {
   return (
     <AsideLayout>
+      <Link to="/hospitals">блоньо</Link>
       <nav>
         <ul style={{ listStyleType: 'none', width: 200, display: 'flex', flexDirection: 'column' }}>
           {LINKS.map((link) => (
-            <NavLink key={link.url}>{link.label}</NavLink>
+            <NavLink key={link.url} url={link.url}>
+              {link.label}
+            </NavLink>
           ))}
           <NavLink onClick={() => exit()}>Выйти</NavLink>
         </ul>
