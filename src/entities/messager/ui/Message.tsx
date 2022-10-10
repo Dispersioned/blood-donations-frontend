@@ -9,10 +9,8 @@ export function Message() {
   const shown = useUnit($shown);
   const close = useUnit(closeMessage);
 
-  console.log(shown);
-
   return (
-    <Snackbar open={shown} autoHideDuration={5000} onClose={close}>
+    <Snackbar open={shown} onClose={close}>
       <Alert onClose={close} variant="filled" severity={type || undefined} style={{ fontSize: 17 }}>
         {msg}
       </Alert>
