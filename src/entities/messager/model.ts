@@ -5,6 +5,7 @@ export const showMessage = createEvent<{
   type?: AlertColor;
   msg: string;
 }>();
+export const showError = showMessage.map((payload) => ({ ...payload, type: 'error' }));
 export const closeMessage = createEvent();
 
 export const $shown = createStore(false);
