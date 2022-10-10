@@ -15,7 +15,9 @@ export function Layout({ children }: LayoutProps) {
   return (
     <Wrapper>
       <Aside />
-      <Container maxWidth="xl">{children}</Container>
+      <Container maxWidth="xl" component="main" style={{ marginTop: 20 }}>
+        {children}
+      </Container>
     </Wrapper>
   );
 }

@@ -1,7 +1,6 @@
 import { useUnit } from 'effector-react';
 import { $authPending, $user } from 'entities/viewer';
-import React from 'react';
-import { Navigate, Outlet, Route } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
 import { Loading } from 'shared/ui/Loading';
 
