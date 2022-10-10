@@ -1,4 +1,4 @@
-import { IUser } from 'shared/types';
+import { IHospital, IUser } from 'shared/types';
 
 import { http } from './http';
 
@@ -12,5 +12,10 @@ export async function loginUser(username: string, password: string) {
     username,
     password,
   });
+  return res.data;
+}
+
+export async function getAllHospitals() {
+  const res = await http.get<IHospital[]>('/hospitals');
   return res.data;
 }

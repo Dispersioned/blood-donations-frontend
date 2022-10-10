@@ -2,13 +2,16 @@ export type IRoleName = 'DONOR' | 'PATIENT' | 'DOCTOR' | 'ADMIN';
 export type IBloodGroup = '' | 'A' | 'B' | 'AB';
 export type IBloodRhFactor = '+' | '-';
 
-export type IUser = {
+interface Timestamp {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type IUser = Timestamp & {
   id: number;
   username: string;
   roleId: number;
   bloodId: number;
-  createdAt: Date;
-  updatedAt: Date;
   role: {
     id: number;
     value: IRoleName;
@@ -23,4 +26,10 @@ export type IUser = {
 export type AuthDto = {
   readonly login: string;
   readonly password: string;
+};
+
+export type IHospital = Timestamp & {
+  id: number;
+  name: string;
+  location: string;
 };
