@@ -1,4 +1,5 @@
 import { Container, styled } from '@mui/material';
+import { Message } from 'entities/messager';
 import React from 'react';
 
 import { Aside } from './Aside';
@@ -18,6 +19,7 @@ export function Layout({ children }: LayoutProps) {
       <Container maxWidth="xl" component="main" style={{ marginTop: 20 }}>
         {children}
       </Container>
+      <Message />
     </Wrapper>
   );
 }

@@ -1,4 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
+import { showError } from 'entities/messager';
 import { fetchMe, loginUser } from 'shared/api';
 import { AuthDto, IRoleName, IUser } from 'shared/types';
 
@@ -68,3 +69,5 @@ sample({
   clock: [loginFx.doneData, validateTokenFx.doneData],
   target: $user,
 });
+
+loginFx.fail.watch(() => showError({ msg: 'Неправильный логин или пароль' }));
