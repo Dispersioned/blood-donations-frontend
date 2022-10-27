@@ -16,7 +16,6 @@ const AsideLayout = styled('aside')`
 export function Aside() {
   return (
     <AsideLayout>
-      <Link to="/hospitals">блоньо</Link>
       <nav>
         <ul style={{ listStyleType: 'none', width: 200, display: 'flex', flexDirection: 'column' }}>
           {LINKS.map((link) => (
