@@ -7,8 +7,7 @@ export function Home() {
   const user = useUnit($user);
 
   return (
-    <Layout>
-      <Typography variant="h2">Мой профиль</Typography>
+    <Layout title="Мой профиль">
       <Typography fontSize={22}>Имя: {user.username}</Typography>
       <Typography fontSize={22}>Роль: {user.role.value}</Typography>
       <Typography fontSize={22}>
