@@ -1,11 +1,11 @@
 import { useUnit } from 'effector-react';
-import { $authPending, $user } from 'entities/viewer';
+import { $authPending, $userSys } from 'entities/viewer';
 import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
 import { Loading } from 'shared/ui/Loading';
 
 export function PrivateRoute() {
-  const user = useUnit($user);
+  const user = useUnit($userSys);
 
   const pending = useUnit($authPending);
 

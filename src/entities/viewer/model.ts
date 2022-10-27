@@ -25,20 +25,20 @@ const exitFx = createEffect(() => {
 
 const $token = createStore(localStorage.getItem('token'));
 export const $authPending = createStore(true);
-export const $user = createStore<IUser | null>(null);
+export const $userSys = createStore<IUser | null>(null);
 // nullable user is cutted by react router guards
-export const $definedUser = createStore<IUser>({} as IUser);
-export const $userRole = $user.map((v) => v?.role.value as IRoleName);
+export const $user = createStore<IUser>({} as IUser);
+export const $userRole = $userSys.map((v) => v?.role.value as IRoleName);
 
 sample({
-  source: $user,
+  source: $userSys,
   filter: (user): user is IUser => !!user,
-  target: $definedUser,
+  target: $user,
 });
 
-$user.on(exit, () => null);
+$userSys.on(exit, () => null);
 
-$user.watch((u) => console.log('user', u));
+$userSys.watch((u) => console.log('user', u));
 
 $authPending.on(loginFx.pending, (_, is) => is);
 $authPending.on(validateTokenFx.pending, (_, is) => is);
@@ -75,7 +75,7 @@ sample({
 
 sample({
   clock: [loginFx.doneData, validateTokenFx.doneData],
-  target: $user,
+  target: $userSys,
 });
 
 loginFx.fail.watch(() => showError({ msg: 'Неправильный логин или пароль' }));

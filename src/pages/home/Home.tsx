@@ -1,11 +1,10 @@
 import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
-import { $definedUser, $userRole } from 'entities/viewer';
+import { $user } from 'entities/viewer';
 import { Layout } from 'shared/ui/layout';
 
 export function Home() {
-  const user = useUnit($definedUser);
-  const role = useUnit($userRole);
+  const user = useUnit($user);
 
   return (
     <Layout>
