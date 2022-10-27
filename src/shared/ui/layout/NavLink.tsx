@@ -1,14 +1,22 @@
 import { Button } from '@mui/material';
-import React from 'react';
+import { Link } from 'react-router-dom';
 
-type NavLinkProps = React.PropsWithChildren<{
-  onClick?: () => void;
-}>;
+type onClickLink = {
+  onClick: () => void;
+  url?: never;
+};
 
-export function NavLink({ children, onClick }: NavLinkProps) {
+type UrlLink = {
+  onClick?: never;
+  url: string;
+};
+
+type NavLinkProps = React.PropsWithChildren & (onClickLink | UrlLink);
+
+export function NavLink({ onClick, url, children }: NavLinkProps) {
   return (
     <li>
-      <Button onClick={onClick} style={{ width: '100%' }}>
+      <Button component={Link} to={url as string} onClick={onClick as () => void} style={{ width: '100%' }}>
         {children}
       </Button>
     </li>

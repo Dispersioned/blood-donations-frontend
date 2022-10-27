@@ -1,4 +1,4 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { createEffect, createEvent, createStore, sample, split } from 'effector';
 import { showError } from 'entities/messager';
 import { fetchMe, loginUser } from 'shared/api';
 import { AuthDto, IRoleName, IUser } from 'shared/types';
@@ -7,6 +7,7 @@ export const login = createEvent<AuthDto>();
 export const register = createEvent<AuthDto>();
 export const checkToken = createEvent();
 const validateToken = createEvent<string>();
+const invalidateToken = createEvent<any>();
 export const exit = createEvent();
 
 const loginFx = createEffect(async (data: AuthDto) => {
@@ -24,23 +25,24 @@ const exitFx = createEffect(() => {
 
 const $token = createStore(localStorage.getItem('token'));
 export const $authPending = createStore(true);
-export const $user = createStore<IUser | null>(null);
+export const $userSys = createStore<IUser | null>(null);
 // nullable user is cutted by react router guards
-export const $definedUser = createStore<IUser>({} as IUser);
-export const $userRole = $user.map((v) => v?.role.value as IRoleName);
+export const $user = createStore<IUser>({} as IUser);
+export const $userRole = $userSys.map((v) => v?.role.value as IRoleName);
 
 sample({
-  source: $user,
+  source: $userSys,
   filter: (user): user is IUser => !!user,
-  target: $definedUser,
+  target: $user,
 });
 
-$user.on(exit, () => null);
+$userSys.on(exit, () => null);
 
-$user.watch((u) => console.log('user', u));
+$userSys.watch((u) => console.log('user', u));
 
 $authPending.on(loginFx.pending, (_, is) => is);
 $authPending.on(validateTokenFx.pending, (_, is) => is);
+$authPending.on(invalidateToken, () => false);
 
 sample({
   clock: exit,
@@ -52,11 +54,17 @@ sample({
   target: loginFx,
 });
 
-sample({
+split({
   clock: checkToken,
   source: $token,
-  filter: (token): token is string => !!token,
-  target: validateToken,
+  match: {
+    exist: (token) => !!token,
+    nonexist: (token) => !token,
+  },
+  cases: {
+    exist: validateToken,
+    nonexist: invalidateToken,
+  },
 });
 
 sample({
@@ -67,7 +75,7 @@ sample({
 
 sample({
   clock: [loginFx.doneData, validateTokenFx.doneData],
-  target: $user,
+  target: $userSys,
 });
 
 loginFx.fail.watch(() => showError({ msg: 'Неправильный логин или пароль' }));
