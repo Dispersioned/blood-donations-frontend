@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, sample, split } from 'effector';
 import { showError } from 'entities/messager';
-import { fetchMe, loginUser } from 'shared/api';
+import { fetchMe, loginUser, registerUser } from 'shared/api';
 import { AuthDto, IRoleName, IUser } from 'shared/types';
 
 export const login = createEvent<AuthDto>();
@@ -12,6 +12,11 @@ export const exit = createEvent();
 
 const loginFx = createEffect(async (data: AuthDto) => {
   const { user, token } = await loginUser(data.login, data.password);
+  localStorage.setItem('token', token);
+  return user;
+});
+const registerFx = createEffect(async (data: AuthDto) => {
+  const { user, token } = await registerUser(data.login, data.password);
   localStorage.setItem('token', token);
   return user;
 });
@@ -52,6 +57,11 @@ sample({
 sample({
   clock: login,
   target: loginFx,
+});
+
+sample({
+  clock: register,
+  target: registerFx,
 });
 
 split({

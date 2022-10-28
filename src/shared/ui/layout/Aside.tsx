@@ -1,6 +1,5 @@
 import { styled } from '@mui/material';
 import { exit } from 'entities/viewer';
-import { Link } from 'react-router-dom';
 import { LINKS } from 'shared/config/routes';
 
 import { NavLink } from './NavLink';
