@@ -37,6 +37,7 @@ export function RegisterFields({ control }: RegisterFieldsProps) {
         )}
       />
       <Controller
+        defaultValue=""
         name="blood"
         control={control}
         rules={{ required: true }}

@@ -13,7 +13,6 @@ type IRegisterEvent = {
 export const login = createEvent<ILoginUserDto>();
 export const register = createEvent<IRegisterEvent>();
 const registerConfirmed = createEvent<IRegisterEvent>();
-const registerRejected = createEvent<IRegisterEvent>();
 
 sample({
   clock: login,
@@ -27,11 +26,9 @@ split({
   },
   cases: {
     valid: registerConfirmed,
-    __: registerRejected,
+    __: messagerModel.showError.prepend<IRegisterEvent>(() => ({ msg: 'Пароли не совпадают' })),
   },
 });
-
-registerRejected.watch(() => messagerModel.showError({ msg: 'Пароли не совпадают' }));
 
 sample({
   clock: registerConfirmed,

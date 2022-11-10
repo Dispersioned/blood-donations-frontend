@@ -42,6 +42,7 @@ sample({
 });
 
 $userSys.on(exit, () => null);
+$userSys.on(registerFx.doneData, (_, user) => user);
 
 $userSys.watch((u) => console.log('user', u));
 
