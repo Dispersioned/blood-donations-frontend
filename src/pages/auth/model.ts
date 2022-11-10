@@ -1,5 +1,5 @@
 import { createEvent, split } from 'effector';
-import { login, register } from 'entities/viewer';
+import { viewerModel } from 'entities/viewer';
 import { ILoginUserDto } from 'shared/types';
 
 export type IAuthPayload = { type: 'login' | 'register'; data: ILoginUserDto };
@@ -13,7 +13,7 @@ split({
     register: ({ type }) => type === 'register',
   },
   cases: {
-    login: login.prepend<IAuthPayload>((payload) => payload.data),
-    register: register.prepend<IAuthPayload>((payload) => payload.data),
+    login: viewerModel.login.prepend<IAuthPayload>((payload) => payload.data),
+    register: viewerModel.register.prepend<IAuthPayload>((payload) => payload.data),
   },
 });

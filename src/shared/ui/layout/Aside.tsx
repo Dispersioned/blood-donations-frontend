@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import { exit } from 'entities/viewer';
+import { viewerModel } from 'entities/viewer';
 import { LINKS } from 'shared/config/routes';
 
 import { NavLink } from './NavLink';
@@ -22,7 +22,7 @@ export function Aside() {
               {link.label}
             </NavLink>
           ))}
-          <NavLink onClick={() => exit()}>Выйти</NavLink>
+          <NavLink onClick={() => viewerModel.exit()}>Выйти</NavLink>
         </ul>
       </nav>
     </AsideLayout>

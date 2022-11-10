@@ -1,5 +1,5 @@
 import { createEffect, createEvent, createStore, sample, split } from 'effector';
-import { showError } from 'entities/messager';
+import { messagerModel } from 'entities/messager';
 import { fetchMe, loginUser, registerUser } from 'shared/api';
 import { ILoginUserDto, IRoleName, IUser } from 'shared/types';
 
@@ -88,4 +88,4 @@ sample({
   target: $userSys,
 });
 
-loginFx.fail.watch(() => showError({ msg: 'Неправильный логин или пароль' }));
+loginFx.fail.watch(() => messagerModel.showError({ msg: 'Неправильный логин или пароль' }));
