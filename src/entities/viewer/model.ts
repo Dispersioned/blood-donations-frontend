@@ -1,8 +1,7 @@
 import { createEffect, createEvent, createStore, sample, split } from 'effector';
 import { showError } from 'entities/messager';
 import { fetchMe, loginUser, registerUser } from 'shared/api';
-import { IRoleName, IUser } from 'shared/types';
-import { ILoginUserDto } from 'shared/typesBackend';
+import { ILoginUserDto, IRoleName, IUser } from 'shared/types';
 
 export const login = createEvent<ILoginUserDto>();
 export const register = createEvent<ILoginUserDto>();
