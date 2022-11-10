@@ -23,11 +23,6 @@ export type IUser = Timestamp & {
   };
 };
 
-export type AuthDto = {
-  readonly login: string;
-  readonly password: string;
-};
-
 export type IHospital = Timestamp & {
   id: number;
   name: string;

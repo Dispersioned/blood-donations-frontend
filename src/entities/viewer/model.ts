@@ -1,22 +1,23 @@
 import { createEffect, createEvent, createStore, sample, split } from 'effector';
 import { showError } from 'entities/messager';
 import { fetchMe, loginUser, registerUser } from 'shared/api';
-import { AuthDto, IRoleName, IUser } from 'shared/types';
+import { IRoleName, IUser } from 'shared/types';
+import { ILoginUserDto } from 'shared/typesBackend';
 
-export const login = createEvent<AuthDto>();
-export const register = createEvent<AuthDto>();
+export const login = createEvent<ILoginUserDto>();
+export const register = createEvent<ILoginUserDto>();
 export const checkToken = createEvent();
 const validateToken = createEvent<string>();
 const invalidateToken = createEvent<any>();
 export const exit = createEvent();
 
-const loginFx = createEffect(async (data: AuthDto) => {
-  const { user, token } = await loginUser(data.login, data.password);
+const loginFx = createEffect(async (data: ILoginUserDto) => {
+  const { user, token } = await loginUser(data.username, data.password);
   localStorage.setItem('token', token);
   return user;
 });
-const registerFx = createEffect(async (data: AuthDto) => {
-  const { user, token } = await registerUser(data.login, data.password);
+const registerFx = createEffect(async (data: ILoginUserDto) => {
+  const { user, token } = await registerUser(data.username, data.password);
   localStorage.setItem('token', token);
   return user;
 });

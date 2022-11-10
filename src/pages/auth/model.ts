@@ -1,8 +1,8 @@
 import { createEvent, split } from 'effector';
 import { login, register } from 'entities/viewer';
-import { AuthDto } from 'shared/types';
+import { ILoginUserDto } from 'shared/typesBackend';
 
-export type IAuthPayload = { type: 'login' | 'register'; data: AuthDto };
+export type IAuthPayload = { type: 'login' | 'register'; data: ILoginUserDto };
 
 export const auth = createEvent<IAuthPayload>();
 
