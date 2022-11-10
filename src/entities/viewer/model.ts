@@ -1,10 +1,10 @@
 import { createEffect, createEvent, createStore, sample, split } from 'effector';
 import { messagerModel } from 'entities/messager';
 import { fetchMe, loginUser, registerUser } from 'shared/api';
-import { ILoginUserDto, IRoleName, IUser } from 'shared/types';
+import { ILoginUserDto, IRegisterUserDto, IRoleName, IUser } from 'shared/types';
 
 export const login = createEvent<ILoginUserDto>();
-export const register = createEvent<ILoginUserDto>();
+export const register = createEvent<IRegisterUserDto>();
 export const checkToken = createEvent();
 const validateToken = createEvent<string>();
 const invalidateToken = createEvent<any>();

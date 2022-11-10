@@ -29,15 +29,15 @@ export type IHospital = Timestamp & {
   location: string;
 };
 export interface ICreateBloodDto {
-  readonly group: IBloodGroup;
-  readonly rhFactor: IBloodRhFactor;
+  group: IBloodGroup;
+  rhFactor: IBloodRhFactor;
 }
 
 export interface ILoginUserDto {
-  readonly username: string;
-  readonly password: string;
+  username: string;
+  password: string;
 }
 
 export interface IRegisterUserDto extends ILoginUserDto {
-  readonly blood: ICreateBloodDto;
+  blood: ICreateBloodDto;
 }

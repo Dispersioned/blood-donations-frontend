@@ -3,11 +3,11 @@ import React from 'react';
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
-import { ILoginUserDto } from 'shared/types';
+import { IRegisterUserDto } from 'shared/types';
 
 type RegisterActionBtnsProps = {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: (data: any) => ILoginUserDto;
+  onSubmit: (data: any) => void;
 };
 
 export function RegisterActionBtns({ handleSubmit, onSubmit }: RegisterActionBtnsProps) {
