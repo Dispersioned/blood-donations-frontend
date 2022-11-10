@@ -1,5 +1,5 @@
 import { Typography, styled } from '@mui/material';
-import { auth } from 'pages/auth/model';
+import { authModel } from 'pages/auth';
 import { useForm } from 'react-hook-form';
 
 import { LoginActionBtns } from './LoginActionBtns';
@@ -26,7 +26,8 @@ export const ActionBtns = styled('div')`
 
 export function AuthForm({ type }: AuthFormProps) {
   const { control, handleSubmit } = useForm();
-  const onSubmit = (data: any) => auth({ type, data });
+  const onLogin = (data: any) => authModel.login(data);
+  const onRegister = (data: any) => authModel.register(data);
 
   return (
     <FormLayout>
@@ -37,8 +38,8 @@ export function AuthForm({ type }: AuthFormProps) {
       {type === 'register' && <RegisterFields control={control} />}
 
       <ActionBtns>
-        {type === 'login' && <LoginActionBtns handleSubmit={handleSubmit} onSubmit={onSubmit} />}
-        {type === 'register' && <RegisterActionBtns handleSubmit={handleSubmit} onSubmit={onSubmit} />}
+        {type === 'login' && <LoginActionBtns handleSubmit={handleSubmit} onSubmit={onLogin} />}
+        {type === 'register' && <RegisterActionBtns handleSubmit={handleSubmit} onSubmit={onRegister} />}
       </ActionBtns>
     </FormLayout>
   );

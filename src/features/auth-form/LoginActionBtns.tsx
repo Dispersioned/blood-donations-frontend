@@ -1,13 +1,13 @@
 import { Button } from '@mui/material';
-import { IAuthPayload } from 'pages/auth/model';
 import React from 'react';
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
+import { ILoginUserDto } from 'shared/types';
 
 type LoginActionBtnsProps = React.PropsWithChildren<{
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: (data: any) => IAuthPayload;
+  onSubmit: (data: any) => ILoginUserDto;
 }>;
 
 export function LoginActionBtns({ handleSubmit, onSubmit }: LoginActionBtnsProps) {
