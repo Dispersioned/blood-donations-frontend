@@ -11,7 +11,7 @@ export function RegisterFields({ control }: RegisterFieldsProps) {
     <>
       <Controller
         defaultValue=""
-        name="login"
+        name="username"
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value, ref } }) => (

@@ -11,12 +11,12 @@ const invalidateToken = createEvent<any>();
 export const exit = createEvent();
 
 const loginFx = createEffect(async (data: ILoginUserDto) => {
-  const { user, token } = await loginUser(data.username, data.password);
+  const { user, token } = await loginUser(data);
   localStorage.setItem('token', token);
   return user;
 });
 const registerFx = createEffect(async (data: IRegisterUserDto) => {
-  const { user, token } = await registerUser(data.username, data.password);
+  const { user, token } = await registerUser(data);
   localStorage.setItem('token', token);
   return user;
 });

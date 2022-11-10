@@ -40,8 +40,8 @@ sample({
     return {
       ...data,
       blood: {
-        group: bloodInfo.slice(-1) as IBloodGroup,
-        rhFactor: bloodInfo.replace('+', '').replace('-', '') as IBloodRhFactor,
+        group: bloodInfo.replace('+', '').replace('-', '') as IBloodGroup,
+        rhFactor: bloodInfo.slice(-1) as IBloodRhFactor,
       },
     };
   },

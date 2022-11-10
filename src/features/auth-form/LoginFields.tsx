@@ -14,7 +14,7 @@ export function LoginFields({ control }: LoginFieldsProps) {
           <TextField value={value} onChange={onChange} onBlur={onBlur} inputRef={ref} label="Логин" />
         )}
         defaultValue=""
-        name="login"
+        name="username"
         control={control}
         rules={{ required: true }}
       />
