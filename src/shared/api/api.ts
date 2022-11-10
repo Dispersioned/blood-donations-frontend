@@ -1,4 +1,4 @@
-import { IHospital, IUser } from 'shared/types';
+import { IHospital, ILoginUserDto, IRegisterUserDto, IUser } from 'shared/types';
 
 import { http } from './http';
 
@@ -7,11 +7,13 @@ export async function fetchMe(token: string) {
   return res.data;
 }
 
-export async function loginUser(username: string, password: string) {
-  const res = await http.post<{ user: IUser; token: string }>('auth/login', {
-    username,
-    password,
-  });
+export async function loginUser(data: ILoginUserDto) {
+  const res = await http.post<{ user: IUser; token: string }>('auth/login', data);
+  return res.data;
+}
+
+export async function registerUser(data: IRegisterUserDto) {
+  const res = await http.post<{ user: IUser; token: string }>('auth/register', data);
   return res.data;
 }
 

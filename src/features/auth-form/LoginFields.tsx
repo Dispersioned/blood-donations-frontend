@@ -2,9 +2,9 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
-type LoginFieldsProps = React.PropsWithChildren<{
+type LoginFieldsProps = {
   control: Control<FieldValues, any>;
-}>;
+};
 
 export function LoginFields({ control }: LoginFieldsProps) {
   return (
@@ -14,7 +14,7 @@ export function LoginFields({ control }: LoginFieldsProps) {
           <TextField value={value} onChange={onChange} onBlur={onBlur} inputRef={ref} label="Логин" />
         )}
         defaultValue=""
-        name="login"
+        name="username"
         control={control}
         rules={{ required: true }}
       />

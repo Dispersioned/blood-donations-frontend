@@ -1,4 +1,4 @@
-import { checkToken } from 'entities/viewer';
+import { viewerModel } from 'entities/viewer';
 import { Auth } from 'pages/auth';
 import { Home } from 'pages/home';
 import { Hospitals } from 'pages/hospitals';
@@ -11,7 +11,7 @@ import { PublicRoute } from './PublicRoute';
 
 export function Routing() {
   useEffect(() => {
-    checkToken();
+    viewerModel.checkToken();
   }, []);
 
   return (

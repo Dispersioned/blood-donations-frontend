@@ -23,13 +23,21 @@ export type IUser = Timestamp & {
   };
 };
 
-export type AuthDto = {
-  readonly login: string;
-  readonly password: string;
-};
-
 export type IHospital = Timestamp & {
   id: number;
   name: string;
   location: string;
 };
+export interface ICreateBloodDto {
+  group: IBloodGroup;
+  rhFactor: IBloodRhFactor;
+}
+
+export interface ILoginUserDto {
+  username: string;
+  password: string;
+}
+
+export interface IRegisterUserDto extends ILoginUserDto {
+  blood: ICreateBloodDto;
+}

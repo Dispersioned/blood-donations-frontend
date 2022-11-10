@@ -1,13 +1,13 @@
 import { useUnit } from 'effector-react';
-import { $authPending, $userSys } from 'entities/viewer';
+import { viewerModel } from 'entities/viewer';
 import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
 import { Loading } from 'shared/ui/Loading';
 
 export function PrivateRoute() {
-  const user = useUnit($userSys);
+  const user = useUnit(viewerModel.$userSys);
 
-  const pending = useUnit($authPending);
+  const pending = useUnit(viewerModel.$authPending);
 
   if (pending) return <Loading />;
 

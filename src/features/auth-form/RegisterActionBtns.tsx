@@ -1,14 +1,14 @@
 import { Button } from '@mui/material';
-import { IAuthPayload } from 'pages/auth/model';
 import React from 'react';
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
+import { IRegisterUserDto } from 'shared/types';
 
-type RegisterActionBtnsProps = React.PropsWithChildren<{
+type RegisterActionBtnsProps = {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onSubmit: (data: any) => IAuthPayload;
-}>;
+  onSubmit: (data: any) => void;
+};
 
 export function RegisterActionBtns({ handleSubmit, onSubmit }: RegisterActionBtnsProps) {
   const navigate = useNavigate();

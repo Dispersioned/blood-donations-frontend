@@ -1,19 +1,46 @@
-import { createEvent, split } from 'effector';
-import { login, register } from 'entities/viewer';
-import { AuthDto } from 'shared/types';
+import { createEvent, sample, split } from 'effector';
+import { messagerModel } from 'entities/messager';
+import { viewerModel } from 'entities/viewer';
+import { IBloodGroup, IBloodRhFactor, ILoginUserDto } from 'shared/types';
 
-export type IAuthPayload = { type: 'login' | 'register'; data: AuthDto };
+type IRegisterEvent = {
+  username: string;
+  password: string;
+  repeat_password: string;
+  blood: string;
+};
 
-export const auth = createEvent<IAuthPayload>();
+export const login = createEvent<ILoginUserDto>();
+export const register = createEvent<IRegisterEvent>();
+const registerConfirmed = createEvent<IRegisterEvent>();
+
+sample({
+  clock: login,
+  target: viewerModel.login,
+});
 
 split({
-  source: auth,
+  source: register,
   match: {
-    login: ({ type }) => type === 'login',
-    register: ({ type }) => type === 'register',
+    valid: (data) => data.password === data.repeat_password,
   },
   cases: {
-    login: login.prepend<IAuthPayload>((payload) => payload.data),
-    register: register.prepend<IAuthPayload>((payload) => payload.data),
+    valid: registerConfirmed,
+    __: messagerModel.showError.prepend<IRegisterEvent>(() => ({ msg: 'Пароли не совпадают' })),
   },
+});
+
+sample({
+  clock: registerConfirmed,
+  fn: (data) => {
+    const bloodInfo = data.blood;
+    return {
+      ...data,
+      blood: {
+        group: bloodInfo.replace('+', '').replace('-', '') as IBloodGroup,
+        rhFactor: bloodInfo.slice(-1) as IBloodRhFactor,
+      },
+    };
+  },
+  target: viewerModel.register,
 });

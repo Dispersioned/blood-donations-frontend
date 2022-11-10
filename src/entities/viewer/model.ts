@@ -1,17 +1,22 @@
 import { createEffect, createEvent, createStore, sample, split } from 'effector';
-import { showError } from 'entities/messager';
-import { fetchMe, loginUser } from 'shared/api';
-import { AuthDto, IRoleName, IUser } from 'shared/types';
+import { messagerModel } from 'entities/messager';
+import { fetchMe, loginUser, registerUser } from 'shared/api';
+import { ILoginUserDto, IRegisterUserDto, IRoleName, IUser } from 'shared/types';
 
-export const login = createEvent<AuthDto>();
-export const register = createEvent<AuthDto>();
+export const login = createEvent<ILoginUserDto>();
+export const register = createEvent<IRegisterUserDto>();
 export const checkToken = createEvent();
 const validateToken = createEvent<string>();
 const invalidateToken = createEvent<any>();
 export const exit = createEvent();
 
-const loginFx = createEffect(async (data: AuthDto) => {
-  const { user, token } = await loginUser(data.login, data.password);
+const loginFx = createEffect(async (data: ILoginUserDto) => {
+  const { user, token } = await loginUser(data);
+  localStorage.setItem('token', token);
+  return user;
+});
+const registerFx = createEffect(async (data: IRegisterUserDto) => {
+  const { user, token } = await registerUser(data);
   localStorage.setItem('token', token);
   return user;
 });
@@ -37,6 +42,7 @@ sample({
 });
 
 $userSys.on(exit, () => null);
+$userSys.on(registerFx.doneData, (_, user) => user);
 
 $userSys.watch((u) => console.log('user', u));
 
@@ -52,6 +58,11 @@ sample({
 sample({
   clock: login,
   target: loginFx,
+});
+
+sample({
+  clock: register,
+  target: registerFx,
 });
 
 split({
@@ -78,4 +89,4 @@ sample({
   target: $userSys,
 });
 
-loginFx.fail.watch(() => showError({ msg: 'Неправильный логин или пароль' }));
+loginFx.fail.watch(() => messagerModel.showError({ msg: 'Неправильный логин или пароль' }));

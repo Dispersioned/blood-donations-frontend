@@ -1,10 +1,10 @@
 import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer';
+import { viewerModel } from 'entities/viewer';
 import { Layout } from 'shared/ui/layout';
 
 export function Home() {
-  const user = useUnit($user);
+  const user = useUnit(viewerModel.$user);
 
   return (
     <Layout title="Мой профиль">
