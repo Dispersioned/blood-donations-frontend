@@ -2,9 +2,9 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
-type LoginFieldsProps = React.PropsWithChildren<{
+type LoginFieldsProps = {
   control: Control<FieldValues, any>;
-}>;
+};
 
 export function LoginFields({ control }: LoginFieldsProps) {
   return (

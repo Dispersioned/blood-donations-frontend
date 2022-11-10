@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
 import { ILoginUserDto } from 'shared/types';
 
-type RegisterActionBtnsProps = React.PropsWithChildren<{
+type RegisterActionBtnsProps = {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   onSubmit: (data: any) => ILoginUserDto;
-}>;
+};
 
 export function RegisterActionBtns({ handleSubmit, onSubmit }: RegisterActionBtnsProps) {
   const navigate = useNavigate();
