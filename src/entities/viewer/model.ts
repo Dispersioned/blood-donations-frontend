@@ -15,7 +15,7 @@ const loginFx = createEffect(async (data: ILoginUserDto) => {
   localStorage.setItem('token', token);
   return user;
 });
-const registerFx = createEffect(async (data: ILoginUserDto) => {
+const registerFx = createEffect(async (data: IRegisterUserDto) => {
   const { user, token } = await registerUser(data.username, data.password);
   localStorage.setItem('token', token);
   return user;
