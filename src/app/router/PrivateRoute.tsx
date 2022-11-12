@@ -2,7 +2,7 @@ import { useUnit } from 'effector-react';
 import { viewerModel } from 'entities/viewer';
 import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
-import { Loading } from 'shared/ui/Loading';
+import { Loading } from 'shared/ui/loading1';
 
 export function PrivateRoute() {
   const user = useUnit(viewerModel.$userSys);
