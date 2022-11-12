@@ -6,11 +6,11 @@ type InputProps = {
   label: string;
   name: string;
   defaultValue?: string;
-  rules: UseControllerProps['rules'];
+  rules?: UseControllerProps['rules'];
   autoFocus?: boolean;
 };
 
-export function Input({ control, label, name, defaultValue, rules, autoFocus }: InputProps) {
+export function Input({ control, label, name, defaultValue = '', rules, autoFocus }: InputProps) {
   return (
     <Controller
       render={({ field: { onChange, onBlur, value, ref } }) => (

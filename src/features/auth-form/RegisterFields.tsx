@@ -10,8 +10,8 @@ type RegisterFieldsProps = React.PropsWithChildren<{
 export function RegisterFields({ control }: RegisterFieldsProps) {
   return (
     <>
-      <Input defaultValue="" label="Логин" name="username" control={control} rules={{ required: true }} autoFocus />
-      <Input defaultValue="" label="Пароль" name="password" control={control} rules={{ required: true }} />
+      <Input label="Логин" name="username" control={control} rules={{ required: true }} autoFocus />
+      <Input label="Пароль" name="password" control={control} rules={{ required: true }} />
       <Input
         defaultValue=""
         label="Повторите пароль"
