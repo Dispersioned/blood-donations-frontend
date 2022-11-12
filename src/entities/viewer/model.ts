@@ -56,6 +56,12 @@ sample({
 });
 
 sample({
+  clock: validateTokenFx,
+  filter: (user) => !user,
+  target: exitFx,
+});
+
+sample({
   clock: login,
   target: loginFx,
 });
