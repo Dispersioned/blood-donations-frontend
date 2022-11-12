@@ -1,6 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
+import { Input } from 'shared/ui/input';
 
 type RegisterFieldsProps = React.PropsWithChildren<{
   control: Control<FieldValues, any>;
@@ -9,32 +10,14 @@ type RegisterFieldsProps = React.PropsWithChildren<{
 export function RegisterFields({ control }: RegisterFieldsProps) {
   return (
     <>
-      <Controller
+      <Input defaultValue="" label="Логин" name="username" control={control} rules={{ required: true }} autoFocus />
+      <Input defaultValue="" label="Пароль" name="password" control={control} rules={{ required: true }} />
+      <Input
         defaultValue=""
-        name="username"
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, onBlur, value, ref } }) => (
-          <TextField autoFocus value={value} onChange={onChange} onBlur={onBlur} inputRef={ref} label="Логин" />
-        )}
-      />
-      <Controller
-        defaultValue=""
-        name="password"
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, onBlur, value, ref } }) => (
-          <TextField value={value} onChange={onChange} onBlur={onBlur} inputRef={ref} label="Пароль" />
-        )}
-      />
-      <Controller
-        defaultValue=""
+        label="Повторите пароль"
         name="repeat_password"
         control={control}
         rules={{ required: true }}
-        render={({ field: { onChange, onBlur, value, ref } }) => (
-          <TextField value={value} onChange={onChange} onBlur={onBlur} inputRef={ref} label="Повторите пароль" />
-        )}
       />
       <Controller
         defaultValue=""
