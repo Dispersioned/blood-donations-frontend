@@ -41,3 +41,9 @@ export interface ILoginUserDto {
 export interface IRegisterUserDto extends ILoginUserDto {
   blood: ICreateBloodDto;
 }
+
+export interface ICreateDonationDto {
+  userId: number;
+  hospitalId: number;
+  volume: number;
+}

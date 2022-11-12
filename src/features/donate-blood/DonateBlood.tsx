@@ -1,8 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { useUnit } from 'effector-react';
-import { $userRole } from 'entities/viewer/model';
+import { $user } from 'entities/viewer/model';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Input } from 'shared/ui/input';
 
+import { donateBloodModel } from '.';
 import { canDonate } from './lib/canDonate';
 
 type DonateBloodProps = React.PropsWithChildren<{
@@ -10,35 +13,35 @@ type DonateBloodProps = React.PropsWithChildren<{
 }>;
 
 export function DonateBlood({ hospitalId }: DonateBloodProps) {
-  const userRole = useUnit($userRole);
+  const user = useUnit($user);
 
   const [isShown, setIsShown] = useState(false);
 
+  const { control, handleSubmit } = useForm();
+  const onSubmit = (data: any) => {
+    setIsShown(false);
+    donateBloodModel.donate({
+      volume: +data.volume,
+      userId: user.id,
+      hospitalId,
+    });
+  };
+
   return (
     <div>
-      <Button onClick={() => setIsShown(true)} disabled={!canDonate(userRole)} variant="contained">
+      <Button onClick={() => setIsShown(true)} disabled={!canDonate(user.role.value)} variant="contained">
         Сдать кровь
       </Button>
       <Dialog open={isShown} onClose={() => setIsShown(false)}>
         <DialogTitle>Сдать кровь</DialogTitle>
         <DialogContent>
           <DialogContentText>Укажите объем сданной крови</DialogContentText>
-          {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          /> */}
+          <form id="donate_blood_form">
+            <Input autoFocus control={control} label="Объем" name="volume" rules={{ required: true }} />
+          </form>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              // ...
-            }}
-          >
+          <Button form="donate_blood_form" type="submit" onClick={handleSubmit(onSubmit)}>
             Сдать
           </Button>
         </DialogActions>
