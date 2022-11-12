@@ -15,7 +15,7 @@ export function RegisterFields({ control }: RegisterFieldsProps) {
         control={control}
         rules={{ required: true }}
         render={({ field: { onChange, onBlur, value, ref } }) => (
-          <TextField value={value} onChange={onChange} onBlur={onBlur} inputRef={ref} label="Логин" />
+          <TextField autoFocus value={value} onChange={onChange} onBlur={onBlur} inputRef={ref} label="Логин" />
         )}
       />
       <Controller
