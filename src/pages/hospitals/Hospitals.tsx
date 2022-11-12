@@ -7,8 +7,8 @@ import { HospitalCard } from './HospitalCard';
 import { $hospitals, fetchHospitals } from './model';
 
 const HospitalsList = styled('div')`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 20px;
 `;
 
