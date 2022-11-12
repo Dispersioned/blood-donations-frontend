@@ -1,4 +1,4 @@
-import { ICreateDonationDto, IHospital, ILoginUserDto, IRegisterUserDto, IUser } from 'shared/types';
+import { ICreateDonationDto, IDonation, IHospital, ILoginUserDto, IRegisterUserDto, IUser } from 'shared/types';
 
 import { http } from './http';
 
@@ -23,6 +23,6 @@ export async function getAllHospitals() {
 }
 
 export async function makeDonation(data: ICreateDonationDto) {
-  const res = await http.post<IHospital[]>('donations/make', data);
+  const res = await http.post<IDonation>('donations/make', data);
   return res.data;
 }
