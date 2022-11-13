@@ -26,3 +26,12 @@ export async function makeDonation(data: ICreateDonationDto) {
   const res = await http.post<IDonation>('donations/make', data);
   return res.data;
 }
+
+export async function fetchUserDonations(userId: number) {
+  const res = await http.get<IDonation[]>(`donations/${userId}`, {
+    data: {
+      userId,
+    },
+  });
+  return res.data;
+}

@@ -33,7 +33,16 @@ export interface ICreateDonationDto {
   volume: number;
 }
 
-export type IDonation = Timestamp & ICreateDonationDto & Id;
+export type IHospitalBlood = Timestamp &
+  Id & {
+    hospital: IHospital;
+  };
+
+export type IDonation = Timestamp &
+  Id & {
+    volume: number;
+    hospitalBlood: IHospitalBlood;
+  };
 
 export type IUser = Timestamp &
   Id & {
