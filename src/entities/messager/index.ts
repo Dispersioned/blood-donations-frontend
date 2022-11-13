@@ -1,2 +1,2 @@
-export * as messagerModel from './model';
 export * from './ui/Message';
+export * as messagerModel from './model';

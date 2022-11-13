@@ -1,7 +1,10 @@
 import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { viewerModel } from 'entities/viewer';
+import { canDonate } from 'shared/lib/canDonate';
 import { Layout } from 'shared/ui/layout';
+
+import { ViewDonations } from './ViewDonations';
 
 export function Home() {
   const user = useUnit(viewerModel.$user);
@@ -14,6 +17,7 @@ export function Home() {
         Тип крови: {user.blood.group}
         {user.blood.rhFactor}
       </Typography>
+      {canDonate(user.role.value) && <ViewDonations />}
     </Layout>
   );
 }

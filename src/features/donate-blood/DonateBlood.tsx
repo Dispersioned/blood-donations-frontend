@@ -3,10 +3,10 @@ import { useUnit } from 'effector-react';
 import { $user } from 'entities/viewer/model';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { canDonate } from 'shared/lib/canDonate';
 import { Input } from 'shared/ui/input';
 
 import { donateBloodModel } from '.';
-import { canDonate } from './lib/canDonate';
 
 type DonateBloodProps = React.PropsWithChildren<{
   hospitalId: number;
