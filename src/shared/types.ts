@@ -7,31 +7,16 @@ interface Timestamp {
   updatedAt: Date;
 }
 
-export type IUser = Timestamp & {
+interface Id {
   id: number;
-  username: string;
-  roleId: number;
-  bloodId: number;
-  role: {
-    id: number;
-    value: IRoleName;
-  };
-  blood: {
-    id: number;
-    group: IBloodGroup;
-    rhFactor: IBloodRhFactor;
-  };
-};
+}
 
-export type IHospital = Timestamp & {
-  id: number;
-  name: string;
-  location: string;
-};
 export interface ICreateBloodDto {
   group: IBloodGroup;
   rhFactor: IBloodRhFactor;
 }
+
+export type IBlood = ICreateBloodDto & Id;
 
 export interface ILoginUserDto {
   username: string;
@@ -48,8 +33,23 @@ export interface ICreateDonationDto {
   volume: number;
 }
 
-export type IDonation = Timestamp & {
-  id: number;
-  userId: number;
-  hospitalBloodId: number;
-};
+export type IDonation = Timestamp & ICreateDonationDto & Id;
+
+export type IUser = Timestamp &
+  Id & {
+    username: string;
+    roleId: number;
+    bloodId: number;
+    role: {
+      id: number;
+      value: IRoleName;
+    };
+    blood: IBlood;
+    donations: IDonation[];
+  };
+
+export type IHospital = Timestamp &
+  Id & {
+    name: string;
+    location: string;
+  };
