@@ -27,6 +27,11 @@ export interface IRegisterUserDto extends ILoginUserDto {
   blood: ICreateBloodDto;
 }
 
+export interface IRegisterPatientDto extends IRegisterUserDto {
+  hospitalId: number;
+  doctorId: number;
+}
+
 export interface ICreateDonationDto {
   userId: number;
   hospitalId: number;
@@ -69,3 +74,7 @@ export type IRegisterEvent = {
   repeat_password: string;
   blood: string;
 };
+
+export interface IRegisterPatientEvent extends IRegisterEvent {
+  doctor: IUser;
+}
