@@ -45,3 +45,8 @@ export async function fetchDoctors() {
   const res = await http.get<IUser[]>('users/doctors');
   return res.data;
 }
+
+export async function fetchPatients() {
+  const res = await http.get<IUser[]>('users/patients');
+  return res.data;
+}
