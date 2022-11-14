@@ -16,7 +16,7 @@ export function Doctors() {
   return (
     <Layout title="Доктора">
       <CreateDoctorForm />
-      <div>
+      <div style={{ marginTop: 15 }}>
         {doctors.map((doctor, i) => (
           <Typography key={doctor.id} fontSize={22}>
             {i + 1}. {doctor.username}

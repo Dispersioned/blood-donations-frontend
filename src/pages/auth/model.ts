@@ -1,14 +1,7 @@
 import { createEvent, sample, split } from 'effector';
 import { messagerModel } from 'entities/messager';
 import { viewerModel } from 'entities/viewer';
-import { IBloodGroup, IBloodRhFactor, ILoginUserDto } from 'shared/types';
-
-type IRegisterEvent = {
-  username: string;
-  password: string;
-  repeat_password: string;
-  blood: string;
-};
+import { IBloodGroup, IBloodRhFactor, ILoginUserDto, IRegisterEvent } from 'shared/types';
 
 export const login = createEvent<ILoginUserDto>();
 export const register = createEvent<IRegisterEvent>();

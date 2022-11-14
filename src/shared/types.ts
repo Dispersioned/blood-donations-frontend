@@ -62,3 +62,10 @@ export type IHospital = Timestamp &
     name: string;
     location: string;
   };
+
+export type IRegisterEvent = {
+  username: string;
+  password: string;
+  repeat_password: string;
+  blood: string;
+};
