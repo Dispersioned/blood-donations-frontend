@@ -27,7 +27,7 @@ export async function registerPatient(data: IRegisterUserDto) {
   return res.data;
 }
 
-export async function getAllHospitals() {
+export async function fetchAllHospitals() {
   const res = await http.get<IHospital[]>('hospitals');
   return res.data;
 }
