@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
+import { CreateDoctorForm } from 'features/create-doctor-form';
 import { useEffect } from 'react';
 import { Layout } from 'shared/ui/layout';
 
@@ -14,6 +15,7 @@ export function Doctors() {
 
   return (
     <Layout title="Доктора">
+      <CreateDoctorForm />
       <div>
         {doctors.map((doctor, i) => (
           <Typography key={doctor.id} fontSize={22}>
