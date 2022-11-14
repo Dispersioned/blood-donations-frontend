@@ -17,6 +17,11 @@ export async function registerUser(data: IRegisterUserDto) {
   return res.data;
 }
 
+export async function registerDoctor(data: IRegisterUserDto) {
+  const res = await http.post<{ user: IUser; token: string }>('auth/register-doctor', data);
+  return res.data;
+}
+
 export async function getAllHospitals() {
   const res = await http.get<IHospital[]>('hospitals');
   return res.data;
