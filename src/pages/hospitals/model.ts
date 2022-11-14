@@ -17,5 +17,3 @@ sample({
   filter: fetchHospitalsFx.pending.map((is) => !is),
   target: fetchHospitalsFx,
 });
-
-$hospitals.watch(console.log);

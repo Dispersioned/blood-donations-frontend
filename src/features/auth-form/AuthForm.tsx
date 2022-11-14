@@ -1,11 +1,11 @@
 import { Typography, styled } from '@mui/material';
 import { authModel } from 'pages/auth';
 import { useForm } from 'react-hook-form';
+import { RegisterFields } from 'shared/ui/register-fields';
 
 import { LoginActionBtns } from './LoginActionBtns';
 import { LoginFields } from './LoginFields';
 import { RegisterActionBtns } from './RegisterActionBtns';
-import { RegisterFields } from './RegisterFields';
 
 type AuthFormProps = {
   type: 'login' | 'register';

@@ -6,13 +6,13 @@ import { useForm } from 'react-hook-form';
 import { canDonate } from 'shared/lib/canDonate';
 import { Input } from 'shared/ui/input';
 
-import { donateBloodModel } from '.';
+import { donateBloodFormModel } from '.';
 
-type DonateBloodProps = React.PropsWithChildren<{
+type DonateBloodFormProps = React.PropsWithChildren<{
   hospitalId: number;
 }>;
 
-export function DonateBlood({ hospitalId }: DonateBloodProps) {
+export function DonateBloodForm({ hospitalId }: DonateBloodFormProps) {
   const user = useUnit($user);
 
   const [isShown, setIsShown] = useState(false);
@@ -20,7 +20,7 @@ export function DonateBlood({ hospitalId }: DonateBloodProps) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsShown(false);
-    donateBloodModel.donate({
+    donateBloodFormModel.donate({
       volume: +data.volume,
       userId: user.id,
       hospitalId,
