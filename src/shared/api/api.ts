@@ -35,3 +35,8 @@ export async function fetchUserDonations(userId: number) {
   });
   return res.data;
 }
+
+export async function fetchDoctors() {
+  const res = await http.get<IUser[]>('users/doctors');
+  return res.data;
+}
