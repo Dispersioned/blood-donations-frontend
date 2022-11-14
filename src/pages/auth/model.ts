@@ -1,7 +1,8 @@
 import { createEvent, sample, split } from 'effector';
 import { messagerModel } from 'entities/messager';
 import { viewerModel } from 'entities/viewer';
-import { IBloodGroup, IBloodRhFactor, ILoginUserDto, IRegisterEvent } from 'shared/types';
+import { registerFieldsMapper } from 'shared/lib/registerFieldsMapper';
+import { ILoginUserDto, IRegisterEvent } from 'shared/types';
 
 export const login = createEvent<ILoginUserDto>();
 export const register = createEvent<IRegisterEvent>();
@@ -25,15 +26,6 @@ split({
 
 sample({
   clock: registerConfirmed,
-  fn: (data) => {
-    const bloodInfo = data.blood;
-    return {
-      ...data,
-      blood: {
-        group: bloodInfo.replace('+', '').replace('-', '') as IBloodGroup,
-        rhFactor: bloodInfo.slice(-1) as IBloodRhFactor,
-      },
-    };
-  },
+  fn: registerFieldsMapper,
   target: viewerModel.register,
 });

@@ -2,7 +2,8 @@ import { createEffect, createEvent, sample, split } from 'effector';
 import { doctorsModel } from 'entities/doctors';
 import { messagerModel } from 'entities/messager';
 import { registerDoctor } from 'shared/api';
-import { IBloodGroup, IBloodRhFactor, IRegisterEvent, IRegisterUserDto } from 'shared/types';
+import { registerFieldsMapper } from 'shared/lib/registerFieldsMapper';
+import { IRegisterEvent, IRegisterUserDto } from 'shared/types';
 
 export const register = createEvent<IRegisterEvent>();
 const registerConfirmed = createEvent<IRegisterEvent>();
@@ -31,15 +32,6 @@ split({
 
 sample({
   clock: registerConfirmed,
-  fn: (data) => {
-    const bloodInfo = data.blood;
-    return {
-      ...data,
-      blood: {
-        group: bloodInfo.replace('+', '').replace('-', '') as IBloodGroup,
-        rhFactor: bloodInfo.slice(-1) as IBloodRhFactor,
-      },
-    };
-  },
+  fn: registerFieldsMapper,
   target: registerFx,
 });
