@@ -3,27 +3,27 @@ import { useUnit } from 'effector-react';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
-import { doctorsAutocompleteModel } from '.';
+import { hospitalsAutocompleteModel } from '.';
 
-type DoctorsAutocompleteProps = {
+type HospitalsAutocompleteProps = {
   control: Control<FieldValues, any>;
 };
 
-export function DoctorsAutocomplete({ control }: DoctorsAutocompleteProps) {
+export function HospitalsAutocomplete({ control }: HospitalsAutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const doctors = useUnit(doctorsAutocompleteModel.$doctors);
-  const fetched = useUnit(doctorsAutocompleteModel.$fetched);
+  const hospitals = useUnit(hospitalsAutocompleteModel.$hospitals);
+  const fetched = useUnit(hospitalsAutocompleteModel.$fetched);
   const loading = isOpen && !fetched;
 
   useEffect(() => {
-    if (loading) doctorsAutocompleteModel.fetch();
+    if (loading) hospitalsAutocompleteModel.fetch();
   }, [loading]);
 
   return (
     <Controller
       defaultValue={null}
-      name="doctor"
+      name="hospital"
       control={control}
       rules={{ required: true }}
       render={({ field }) => (
@@ -31,12 +31,12 @@ export function DoctorsAutocomplete({ control }: DoctorsAutocompleteProps) {
           {...field}
           onOpen={() => setIsOpen(true)}
           onClose={() => setIsOpen(false)}
-          options={doctors}
+          options={hospitals}
           getOptionLabel={(option) => {
-            return option.username;
+            return option.name;
           }}
           isOptionEqualToValue={(option, value) => {
-            return option.username === value.username;
+            return option.name === value.name;
           }}
           onChange={(e, value) => {
             field.onChange(value);
@@ -44,7 +44,7 @@ export function DoctorsAutocomplete({ control }: DoctorsAutocompleteProps) {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Лечащий доктор"
+              label="Больница"
               InputProps={{
                 ...params.InputProps,
                 endAdornment: (

@@ -77,4 +77,5 @@ export type IRegisterEvent = {
 
 export interface IRegisterPatientEvent extends IRegisterEvent {
   doctor: IUser;
+  hospital: IHospital;
 }

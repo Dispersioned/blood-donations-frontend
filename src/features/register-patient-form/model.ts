@@ -1,6 +1,6 @@
 import { createEffect, createEvent, sample } from 'effector';
-import { doctorsModel } from 'entities/doctors';
 import { messagerModel } from 'entities/messager';
+import { patientsModel } from 'entities/patients';
 import { registerPatient } from 'shared/api';
 import { passwordValidatorFactory } from 'shared/factory/passwordValidatorFactory';
 import { bloodMapper } from 'shared/lib/bloodMapper';
@@ -17,7 +17,8 @@ const { passwordsEqual } = passwordValidatorFactory(register);
 
 registerFx.doneData.watch((doctor) => {
   messagerModel.showMessage({ type: 'success', msg: 'Пациент зарегистрирован' });
-  doctorsModel.add(doctor);
+  console.log('doctor', doctor);
+  patientsModel.add(doctor);
 });
 registerFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));
 
@@ -27,7 +28,7 @@ sample({
     ...data,
     blood: bloodMapper(data.blood),
     doctorId: data.doctor.id,
-    hospitalId: 0, // TODO not implemented
+    hospitalId: data.hospital.id,
   }),
   target: registerFx,
 });

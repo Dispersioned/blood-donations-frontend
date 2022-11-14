@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { DoctorsAutocomplete } from 'shared/ui/doctors-autocomplete';
+import { HospitalsAutocomplete } from 'shared/ui/hospitals-autocomplete';
 import { RegisterFields } from 'shared/ui/register-fields';
 
 import { registerPatientFormModel } from '.';
@@ -25,7 +26,7 @@ export function RegisterPatientForm() {
   return (
     <>
       <Button variant="contained" onClick={() => setIsOpen(true)}>
-        Добавить пацента
+        Добавить пациента
       </Button>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <DialogTitle>Добавить пациента</DialogTitle>
@@ -34,6 +35,7 @@ export function RegisterPatientForm() {
           <Form id="register_doctor_form">
             <RegisterFields control={control} />
             <DoctorsAutocomplete control={control} />
+            <HospitalsAutocomplete control={control} />
           </Form>
         </DialogContent>
         <DialogActions>
