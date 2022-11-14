@@ -1,9 +1,13 @@
 import { Event, createEvent, split } from 'effector';
 import { messagerModel } from 'entities/messager';
-import { IRegisterEvent } from 'shared/types';
 
-export function passwordValidatorFactory(trigger: Event<IRegisterEvent>) {
-  const passwordsEqual = createEvent<IRegisterEvent>();
+type IPasswordConfirmable = {
+  password: string;
+  repeat_password: string;
+};
+
+export function passwordValidatorFactory<T extends IPasswordConfirmable>(trigger: Event<T>) {
+  const passwordsEqual = createEvent<T>();
 
   split({
     source: trigger,
@@ -12,7 +16,7 @@ export function passwordValidatorFactory(trigger: Event<IRegisterEvent>) {
     },
     cases: {
       valid: passwordsEqual,
-      __: messagerModel.showError.prepend<IRegisterEvent>(() => ({ msg: 'Пароли не совпадают' })),
+      __: messagerModel.showError.prepend<T>(() => ({ msg: 'Пароли не совпадают' })),
     },
   });
 
