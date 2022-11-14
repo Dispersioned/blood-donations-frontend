@@ -1,10 +1,9 @@
 import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
+import { doctorsModel } from 'entities/doctors';
 import { CreateDoctorForm } from 'features/create-doctor-form';
 import { useEffect } from 'react';
 import { Layout } from 'shared/ui/layout';
-
-import { doctorsModel } from '.';
 
 export function Doctors() {
   useEffect(() => {
