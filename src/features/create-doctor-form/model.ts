@@ -1,4 +1,5 @@
 import { createEffect, createEvent, sample, split } from 'effector';
+import { doctorsModel } from 'entities/doctors';
 import { messagerModel } from 'entities/messager';
 import { registerDoctor } from 'shared/api';
 import { IBloodGroup, IBloodRhFactor, IRegisterEvent, IRegisterUserDto } from 'shared/types';
@@ -7,10 +8,14 @@ export const register = createEvent<IRegisterEvent>();
 const registerConfirmed = createEvent<IRegisterEvent>();
 
 const registerFx = createEffect(async (data: IRegisterUserDto) => {
-  await registerDoctor(data);
+  const { user } = await registerDoctor(data);
+  return user;
 });
 
-registerFx.doneData.watch(() => messagerModel.showMessage({ type: 'success', msg: 'Доктор зарегистрирован' }));
+registerFx.doneData.watch((doctor) => {
+  messagerModel.showMessage({ type: 'success', msg: 'Доктор зарегистрирован' });
+  doctorsModel.add(doctor);
+});
 registerFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));
 
 split({
