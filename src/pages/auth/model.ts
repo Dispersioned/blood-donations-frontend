@@ -1,31 +1,21 @@
-import { createEvent, sample, split } from 'effector';
-import { messagerModel } from 'entities/messager';
+import { createEvent, sample } from 'effector';
 import { viewerModel } from 'entities/viewer';
+import { passwordValidatorFactory } from 'shared/factory/passwordValidatorFactory';
 import { registerFieldsMapper } from 'shared/lib/registerFieldsMapper';
 import { ILoginUserDto, IRegisterEvent } from 'shared/types';
 
 export const login = createEvent<ILoginUserDto>();
 export const register = createEvent<IRegisterEvent>();
-const registerConfirmed = createEvent<IRegisterEvent>();
 
 sample({
   clock: login,
   target: viewerModel.login,
 });
 
-split({
-  source: register,
-  match: {
-    valid: (data) => data.password === data.repeat_password,
-  },
-  cases: {
-    valid: registerConfirmed,
-    __: messagerModel.showError.prepend<IRegisterEvent>(() => ({ msg: 'Пароли не совпадают' })),
-  },
-});
+const { passwordsEqual } = passwordValidatorFactory(register);
 
 sample({
-  clock: registerConfirmed,
+  clock: passwordsEqual,
   fn: registerFieldsMapper,
   target: viewerModel.register,
 });
