@@ -22,7 +22,12 @@ export async function registerDoctor(data: IRegisterUserDto) {
   return res.data;
 }
 
-export async function getAllHospitals() {
+export async function registerPatient(data: IRegisterUserDto) {
+  const res = await http.post<{ user: IUser; token: string }>('auth/register-patient', data);
+  return res.data;
+}
+
+export async function fetchAllHospitals() {
   const res = await http.get<IHospital[]>('hospitals');
   return res.data;
 }
@@ -43,5 +48,10 @@ export async function fetchUserDonations(userId: number) {
 
 export async function fetchDoctors() {
   const res = await http.get<IUser[]>('users/doctors');
+  return res.data;
+}
+
+export async function fetchPatients() {
+  const res = await http.get<IUser[]>('users/patients');
   return res.data;
 }

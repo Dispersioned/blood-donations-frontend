@@ -1,11 +1,11 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { getAllHospitals } from 'shared/api';
+import { fetchAllHospitals } from 'shared/api';
 import { IHospital } from 'shared/types';
 
 export const fetchHospitals = createEvent();
 
 const fetchHospitalsFx = createEffect(async () => {
-  const hospitals = await getAllHospitals();
+  const hospitals = await fetchAllHospitals();
   return hospitals;
 });
 
