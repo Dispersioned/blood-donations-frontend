@@ -1,5 +1,5 @@
 import { Card, CardContent as MUICardContent, Typography, styled } from '@mui/material';
-import { DonateBlood } from 'features/donate-blood';
+import { DonateBloodForm } from 'features/donate-blood-form';
 import React from 'react';
 import { IHospital } from 'shared/types';
 
@@ -20,7 +20,7 @@ export function HospitalCard({ hospital }: HospitalCardProps) {
           <Typography variant="h5">{hospital.name}</Typography>
           <Typography color="gray">{hospital.location}</Typography>
         </div>
-        <DonateBlood hospitalId={hospital.id} />
+        <DonateBloodForm hospitalId={hospital.id} />
       </CardContent>
     </Card>
   );
