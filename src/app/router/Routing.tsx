@@ -21,7 +21,7 @@ export function Routing() {
       <Route element={<PrivateRoute />}>
         <Route index element={<Home />} />
         <Route path={ROUTES.hospitals} element={<Hospitals />} />
-        <Route element={<RoleRoute roles={['ADMIN']} />}>
+        <Route element={<RoleRoute roles={['ADMIN', 'DOCTOR']} />}>
           <Route path={ROUTES.doctors} element={<Doctors />} />
         </Route>
       </Route>
