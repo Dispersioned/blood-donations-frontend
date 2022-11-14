@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFields } from 'shared/ui/register-fields';
 
-import { createDoctorFormModel } from '.';
+import { registerDoctorFormModel } from '.';
 
 const Form = styled('form')`
   display: flex;
@@ -12,13 +12,13 @@ const Form = styled('form')`
   margin-top: 15px;
 `;
 
-export function CreateDoctorForm() {
+export function RegisterDoctorForm() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsOpen(false);
-    createDoctorFormModel.register(data);
+    registerDoctorFormModel.register(data);
   };
 
   return (
