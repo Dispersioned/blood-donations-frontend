@@ -74,6 +74,7 @@ export type IHospital = Timestamp &
 export type IPatient = Timestamp &
   Id & {
     user: IUser;
+    hospital: IHospital;
   };
 
 //* events

@@ -5,6 +5,8 @@ import { RegisterPatientForm } from 'features/register-patient-form';
 import { useEffect } from 'react';
 import { Layout } from 'shared/ui/layout';
 
+import { groupPatientsByHospitals } from './lib/groupPatientsByHospitals';
+
 export function Patients() {
   useEffect(() => {
     patientsModel.fetch();
@@ -16,10 +18,17 @@ export function Patients() {
     <Layout title="Пациенты">
       <RegisterPatientForm />
       <div style={{ marginTop: 15 }}>
-        {patients.map((patient, i) => (
-          <Typography key={patient.id} fontSize={22}>
-            {i + 1}.Пациент: {patient.user.username}
-          </Typography>
+        {groupPatientsByHospitals(patients).map(([hospitalId, data]) => (
+          <div key={hospitalId}>
+            <Typography variant="h5" fontWeight="bold">
+              {data.hospital.name}
+            </Typography>
+            {data.patients.map((user, i) => (
+              <Typography key={user.id} fontSize={22}>
+                {i + 1}.Пациент: {user.username}
+              </Typography>
+            ))}
+          </div>
         ))}
       </div>
     </Layout>
