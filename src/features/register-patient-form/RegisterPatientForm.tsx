@@ -34,7 +34,6 @@ export function RegisterPatientForm() {
           <DialogContentText>Укажите личные данные пациента</DialogContentText>
           <Form id="register_doctor_form">
             <RegisterFields control={control} />
-            <DoctorsAutocomplete control={control} />
             <HospitalsAutocomplete control={control} />
           </Form>
         </DialogContent>

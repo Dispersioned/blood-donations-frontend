@@ -15,10 +15,9 @@ const registerFx = createEffect(async (data: IRegisterPatientDto) => {
 
 const { passwordsEqual } = passwordValidatorFactory(register);
 
-registerFx.doneData.watch((doctor) => {
+registerFx.doneData.watch(() => {
   messagerModel.showMessage({ type: 'success', msg: 'Пациент зарегистрирован' });
-  console.log('doctor', doctor);
-  patientsModel.add(doctor);
+  patientsModel.fetch();
 });
 registerFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));
 
@@ -27,7 +26,6 @@ sample({
   fn: (data) => ({
     ...data,
     blood: bloodMapper(data.blood),
-    doctorId: data.doctor.id,
     hospitalId: data.hospital.id,
   }),
   target: registerFx,

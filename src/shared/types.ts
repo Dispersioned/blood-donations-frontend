@@ -11,6 +11,8 @@ interface Id {
   id: number;
 }
 
+//* DTOs
+
 export interface ICreateBloodDto {
   group: IBloodGroup;
   rhFactor: IBloodRhFactor;
@@ -29,7 +31,6 @@ export interface IRegisterUserDto extends ILoginUserDto {
 
 export interface IRegisterPatientDto extends IRegisterUserDto {
   hospitalId: number;
-  doctorId: number;
 }
 
 export interface ICreateDonationDto {
@@ -37,6 +38,8 @@ export interface ICreateDonationDto {
   hospitalId: number;
   volume: number;
 }
+
+//* types
 
 export type IHospitalBlood = Timestamp &
   Id & {
@@ -68,6 +71,13 @@ export type IHospital = Timestamp &
     location: string;
   };
 
+export type IPatient = Timestamp &
+  Id & {
+    user: IUser;
+  };
+
+//* events
+
 export type IRegisterEvent = {
   username: string;
   password: string;
@@ -76,6 +86,5 @@ export type IRegisterEvent = {
 };
 
 export interface IRegisterPatientEvent extends IRegisterEvent {
-  doctor: IUser;
   hospital: IHospital;
 }

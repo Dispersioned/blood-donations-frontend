@@ -1,15 +1,13 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { fetchPatients } from 'shared/api';
-import { IUser } from 'shared/types';
+import { fetchAllPatients } from 'shared/api';
+import { IPatient } from 'shared/types';
 
 export const fetch = createEvent();
-export const add = createEvent<IUser>();
 
-export const $patients = createStore<IUser[]>([]);
-$patients.on(add, (state, payload) => [...state, payload]);
+export const $patients = createStore<IPatient[]>([]);
 
 const fetchFx = createEffect(async () => {
-  const donations = await fetchPatients();
+  const donations = await fetchAllPatients();
   return donations;
 });
 

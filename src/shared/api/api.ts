@@ -1,4 +1,13 @@
-import { ICreateDonationDto, IDonation, IHospital, ILoginUserDto, IRegisterUserDto, IUser } from 'shared/types';
+import {
+  ICreateDonationDto,
+  IDonation,
+  IHospital,
+  ILoginUserDto,
+  IPatient,
+  IRegisterPatientDto,
+  IRegisterUserDto,
+  IUser,
+} from 'shared/types';
 
 import { http } from './http';
 
@@ -22,8 +31,8 @@ export async function registerDoctor(data: IRegisterUserDto) {
   return res.data;
 }
 
-export async function registerPatient(data: IRegisterUserDto) {
-  const res = await http.post<{ user: IUser; token: string }>('auth/register-patient', data);
+export async function registerPatient(data: IRegisterPatientDto) {
+  const res = await http.post<{ user: IPatient; token: string }>('auth/register-patient', data);
   return res.data;
 }
 
@@ -51,7 +60,7 @@ export async function fetchDoctors() {
   return res.data;
 }
 
-export async function fetchPatients() {
-  const res = await http.get<IUser[]>('users/patients');
+export async function fetchAllPatients() {
+  const res = await http.get<IPatient[]>('patients');
   return res.data;
 }

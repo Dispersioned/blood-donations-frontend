@@ -18,7 +18,7 @@ export function Patients() {
       <div style={{ marginTop: 15 }}>
         {patients.map((patient, i) => (
           <Typography key={patient.id} fontSize={22}>
-            {i + 1}. {patient.username}
+            {i + 1}.Пациент: {patient.user.username}
           </Typography>
         ))}
       </div>
