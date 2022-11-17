@@ -27,6 +27,7 @@ sample({
     ...data,
     blood: bloodMapper(data.blood),
     hospitalId: data.hospital.id,
+    doctorId: data.doctor.id,
   }),
   target: registerFx,
 });

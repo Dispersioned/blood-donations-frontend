@@ -2,7 +2,7 @@ import { IHospital, IPatient } from 'shared/types';
 
 type IDataItem = {
   hospital: IHospital;
-  patients: IPatient['user'][];
+  patients: IPatient[];
 };
 
 export function groupPatientsByHospitals(patients: IPatient[]) {
@@ -15,7 +15,7 @@ export function groupPatientsByHospitals(patients: IPatient[]) {
         patients: [],
       };
     }
-    data[patient.hospital.id].patients.push(patient.user);
+    data[patient.hospital.id].patients.push(patient);
   }
 
   return Object.entries(data);
