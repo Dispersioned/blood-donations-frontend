@@ -2,8 +2,11 @@ import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { viewerModel } from 'entities/viewer';
 import { canDonate } from 'shared/lib/access/canDonate';
+import { isPatient } from 'shared/lib/access/isPatient';
 import { Layout } from 'shared/ui/layout';
+import { isPrivateIdentifier } from 'typescript';
 
+import { PatientInfo } from './PatientInfo';
 import { ViewDonations } from './ViewDonations';
 
 export function Home() {
@@ -18,7 +21,7 @@ export function Home() {
         {user.blood.rhFactor}
       </Typography>
       {canDonate(user.role.value) && <ViewDonations />}
-      {}
+      {isPatient(user.role.value) && <PatientInfo patientId={user.id} />}
     </Layout>
   );
 }
