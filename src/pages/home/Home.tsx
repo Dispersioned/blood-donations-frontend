@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { viewerModel } from 'entities/viewer';
-import { canDonate } from 'shared/lib/canDonate';
+import { canDonate } from 'shared/lib/access/canDonate';
 import { Layout } from 'shared/ui/layout';
 
 import { ViewDonations } from './ViewDonations';
@@ -18,6 +18,7 @@ export function Home() {
         {user.blood.rhFactor}
       </Typography>
       {canDonate(user.role.value) && <ViewDonations />}
+      {}
     </Layout>
   );
 }
