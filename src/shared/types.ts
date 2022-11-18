@@ -31,6 +31,7 @@ export interface IRegisterUserDto extends ILoginUserDto {
 
 export interface IRegisterPatientDto extends IRegisterUserDto {
   hospitalId: number;
+  doctorId: number;
 }
 
 export interface ICreateDonationDto {
@@ -75,6 +76,13 @@ export type IPatient = Timestamp &
   Id & {
     user: IUser;
     hospital: IHospital;
+    doctor: IUser;
+  };
+
+export type IPatientInfo = Timestamp &
+  Id & {
+    hospital: IHospital;
+    doctor: IUser;
   };
 
 //* events
@@ -88,4 +96,5 @@ export type IRegisterEvent = {
 
 export interface IRegisterPatientEvent extends IRegisterEvent {
   hospital: IHospital;
+  doctor: IUser;
 }

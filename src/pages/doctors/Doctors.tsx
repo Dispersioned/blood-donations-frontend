@@ -4,7 +4,7 @@ import { doctorsModel } from 'entities/doctors';
 import { $user } from 'entities/viewer/model';
 import { RegisterDoctorForm } from 'features/register-doctor-form';
 import { useEffect } from 'react';
-import { isAdmin } from 'shared/lib/isAdmin';
+import { isAdmin } from 'shared/lib/access/isAdmin';
 import { Layout } from 'shared/ui/layout';
 
 export function Doctors() {

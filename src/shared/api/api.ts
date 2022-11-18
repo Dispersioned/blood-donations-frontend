@@ -4,6 +4,7 @@ import {
   IHospital,
   ILoginUserDto,
   IPatient,
+  IPatientInfo,
   IRegisterPatientDto,
   IRegisterUserDto,
   IUser,
@@ -62,5 +63,10 @@ export async function fetchDoctors() {
 
 export async function fetchAllPatients() {
   const res = await http.get<IPatient[]>('patients');
+  return res.data;
+}
+
+export async function fetchPatientInfo(patientId: number) {
+  const res = await http.get<IPatientInfo>(`patients/${patientId}`);
   return res.data;
 }

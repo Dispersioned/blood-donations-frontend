@@ -3,7 +3,7 @@ import { useUnit } from 'effector-react';
 import { $user } from 'entities/viewer/model';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { canDonate } from 'shared/lib/canDonate';
+import { canDonate } from 'shared/lib/access/canDonate';
 import { Input } from 'shared/ui/input';
 
 import { donateBloodFormModel } from '.';

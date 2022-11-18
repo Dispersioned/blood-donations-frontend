@@ -4,7 +4,7 @@ import { $user } from 'entities/viewer/model';
 import { useEffect } from 'react';
 import { formatDate } from 'shared/lib/formatDate';
 
-import { ViewDonationsModel } from '.';
+import { viewDonationsModel } from '.';
 
 const Wrapper = styled('div')`
   display: flex;
@@ -29,10 +29,10 @@ const DonationCard = styled(Card)`
 
 export function ViewDonations() {
   const user = useUnit($user);
-  const donations = useUnit(ViewDonationsModel.$donations);
+  const donations = useUnit(viewDonationsModel.$donations);
 
   useEffect(() => {
-    ViewDonationsModel.fetch({ userId: user.id });
+    viewDonationsModel.fetch({ userId: user.id });
   }, [user]);
 
   return (
