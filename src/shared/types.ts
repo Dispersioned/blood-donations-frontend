@@ -79,12 +79,6 @@ export type IPatient = Timestamp &
     doctor: IUser;
   };
 
-export type IPatientInfo = Timestamp &
-  Id & {
-    hospital: IHospital;
-    doctor: IUser;
-  };
-
 //* events
 
 export type IRegisterEvent = {
