@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
+import { MakeRequestForm } from 'features/make-request-form';
 import { useEffect } from 'react';
 
 import { patientInfoModel } from '.';
@@ -13,14 +14,15 @@ export function PatientInfo({ patientId }: PatientInfoProps) {
     patientInfoModel.fetch({ patientId });
   }, [patientId]);
 
-  const patientInfo = useUnit(patientInfoModel.$patientInfo);
+  const patient = useUnit(patientInfoModel.$patient);
 
-  if (!patientInfo) return null;
+  if (!patient) return null;
 
   return (
     <div>
-      <Typography fontSize={22}>Лечащий врач: {patientInfo.doctor.username}</Typography>
-      <Typography fontSize={22}>Больница: {patientInfo.hospital.name}</Typography>
+      <Typography fontSize={22}>Лечащий врач: {patient.doctor.username}</Typography>
+      <Typography fontSize={22}>Больница: {patient.hospital.name}</Typography>
+      <MakeRequestForm patient={patient} />
     </div>
   );
 }

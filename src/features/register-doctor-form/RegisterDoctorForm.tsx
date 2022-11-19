@@ -1,16 +1,10 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, styled } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FormLayout } from 'shared/ui/form-layout';
 import { RegisterFields } from 'shared/ui/register-fields';
 
 import { registerDoctorFormModel } from '.';
-
-const Form = styled('form')`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 15px;
-`;
 
 export function RegisterDoctorForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,10 +23,10 @@ export function RegisterDoctorForm() {
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <DialogTitle>Добавить доктора</DialogTitle>
         <DialogContent>
-          <DialogContentText>Укажите личные данные доктора</DialogContentText>
-          <Form id="register_doctor_form">
+          <FormLayout id="register_doctor_form">
+            <DialogContentText>Укажите личные данные доктора</DialogContentText>
             <RegisterFields control={control} />
-          </Form>
+          </FormLayout>
         </DialogContent>
         <DialogActions>
           <Button form="register_doctor_form" onClick={handleSubmit(onSubmit)} type="submit" variant="contained">

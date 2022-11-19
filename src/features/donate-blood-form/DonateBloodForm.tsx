@@ -4,6 +4,7 @@ import { $user } from 'entities/viewer/model';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { canDonate } from 'shared/lib/access/canDonate';
+import { FormLayout } from 'shared/ui/form-layout';
 import { Input } from 'shared/ui/input';
 
 import { donateBloodFormModel } from '.';
@@ -35,10 +36,10 @@ export function DonateBloodForm({ hospitalId }: DonateBloodFormProps) {
       <Dialog open={isShown} onClose={() => setIsShown(false)}>
         <DialogTitle>Сдать кровь</DialogTitle>
         <DialogContent>
-          <DialogContentText>Укажите объем сданной крови</DialogContentText>
-          <form id="donate_blood_form">
+          <FormLayout id="donate_blood_form">
+            <DialogContentText>Укажите объем сданной крови</DialogContentText>
             <Input autoFocus control={control} label="Объем" name="volume" rules={{ required: true }} />
-          </form>
+          </FormLayout>
         </DialogContent>
         <DialogActions>
           <Button form="donate_blood_form" type="submit" onClick={handleSubmit(onSubmit)}>

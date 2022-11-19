@@ -1,13 +1,13 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { fetchPatientInfo } from 'shared/api';
-import { IPatientInfo } from 'shared/types';
+import { IPatient } from 'shared/types';
 
 type IFetchPayload = {
   patientId: number;
 };
 
 export const fetch = createEvent<IFetchPayload>();
-export const $patientInfo = createStore<IPatientInfo | null>(null);
+export const $patient = createStore<IPatient | null>(null);
 
 const fetchFx = createEffect(async ({ patientId }: IFetchPayload) => {
   const patientInfo = await fetchPatientInfo(patientId);
@@ -22,7 +22,5 @@ sample({
 
 sample({
   clock: fetchFx.doneData,
-  target: $patientInfo,
+  target: $patient,
 });
-
-$patientInfo.watch(console.log);

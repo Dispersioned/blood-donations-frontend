@@ -1,10 +1,10 @@
 import {
   ICreateDonationDto,
+  ICreateRequestDto,
   IDonation,
   IHospital,
   ILoginUserDto,
   IPatient,
-  IPatientInfo,
   IRegisterPatientDto,
   IRegisterUserDto,
   IUser,
@@ -67,6 +67,13 @@ export async function fetchAllPatients() {
 }
 
 export async function fetchPatientInfo(patientId: number) {
-  const res = await http.get<IPatientInfo>(`patients/${patientId}`);
+  const res = await http.get<IPatient>(`patients/${patientId}`);
+  return res.data;
+}
+
+// TODO return request not IPatient
+export async function makeDonationRequest(data: ICreateRequestDto) {
+  const res = await http.post<IPatient>('requests', data);
+  console.log('res.data', res.data);
   return res.data;
 }
