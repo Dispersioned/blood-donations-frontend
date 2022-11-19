@@ -1,6 +1,7 @@
 export type IRoleName = 'DONOR' | 'PATIENT' | 'DOCTOR' | 'ADMIN';
 export type IBloodGroup = '' | 'A' | 'B' | 'AB';
 export type IBloodRhFactor = '+' | '-';
+export type IRequestStatus = 'FULFILLED' | 'PENDING';
 
 interface Timestamp {
   createdAt: Date;
@@ -87,6 +88,7 @@ export type IPatient = Timestamp &
 export type IRequest = Timestamp &
   Id & {
     patient: IPatient;
+    status: IRequestStatus;
     volume: number;
   };
 
