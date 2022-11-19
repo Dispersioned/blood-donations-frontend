@@ -4,6 +4,7 @@ import { Doctors } from 'pages/doctors';
 import { Home } from 'pages/home';
 import { Hospitals } from 'pages/hospitals';
 import { Patients } from 'pages/patients';
+import { Requests } from 'pages/requests';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
@@ -22,6 +23,9 @@ export function Routing() {
       <Route element={<PrivateRoute />}>
         <Route index element={<Home />} />
         <Route path={ROUTES.hospitals} element={<Hospitals />} />
+        <Route element={<RoleRoute roles={['PATIENT']} />}>
+          <Route path={ROUTES.requests} element={<Requests />} />
+        </Route>
         <Route element={<RoleRoute roles={['ADMIN', 'DOCTOR']} />}>
           <Route path={ROUTES.doctors} element={<Doctors />} />
           <Route path={ROUTES.patients} element={<Patients />} />
