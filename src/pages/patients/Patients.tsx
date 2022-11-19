@@ -25,7 +25,7 @@ export function Patients() {
             </Typography>
             {data.patients.map(({ user, doctor, id }, i) => (
               <Typography key={id} fontSize={22}>
-                {i + 1}. Пациент: {user.username} Доктор {doctor.username}
+                {i + 1}. Пациент: {user.username}. Доктор {doctor.username}
               </Typography>
             ))}
           </div>
