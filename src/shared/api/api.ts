@@ -8,6 +8,7 @@ import {
   IRegisterPatientDto,
   IRegisterUserDto,
   IRequest,
+  IRequestWithInfo,
   IUser,
 } from 'shared/types';
 
@@ -68,7 +69,7 @@ export async function fetchAllPatients() {
 }
 
 export async function fetchAllRequests() {
-  const res = await http.get<IRequest[]>('requests');
+  const res = await http.get<IRequestWithInfo[]>('requests');
   return res.data;
 }
 

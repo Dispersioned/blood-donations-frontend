@@ -28,7 +28,7 @@ export function Requests() {
   return (
     <Layout title="Запросы крови">
       <List>
-        {requests.map((request) => (
+        {requests.map(({ request, availableVolume }) => (
           <RequestCard key={request.id}>
             <Typography>Пациент: {request.patient.user.username}</Typography>
             <Typography>Лечащий доктор: {request.patient.doctor.username}</Typography>
@@ -41,7 +41,10 @@ export function Requests() {
               </b>
             </Typography>
             <Typography>
-              <span style={{ fontSize: 25 }}>{request.volume}</span> мл
+              <span style={{ fontSize: 25 }}>
+                {availableVolume} / {request.volume}
+              </span>{' '}
+              мл
             </Typography>
           </RequestCard>
         ))}

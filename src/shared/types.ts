@@ -92,6 +92,11 @@ export type IRequest = Timestamp &
     volume: number;
   };
 
+export type IRequestWithInfo = {
+  request: IRequest;
+  availableVolume: number;
+};
+
 //* events
 
 export type IRegisterEvent = {
