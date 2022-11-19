@@ -40,6 +40,11 @@ export interface ICreateDonationDto {
   volume: number;
 }
 
+export interface ICreateRequestDto {
+  patientId: number;
+  volume: number;
+}
+
 //* types
 
 export type IHospitalBlood = Timestamp &
