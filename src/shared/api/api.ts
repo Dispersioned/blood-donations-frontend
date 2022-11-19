@@ -71,9 +71,7 @@ export async function fetchPatientInfo(patientId: number) {
   return res.data;
 }
 
-// TODO return request not IPatient
 export async function makeDonationRequest(data: ICreateRequestDto) {
-  const res = await http.post<IPatient>('requests', data);
-  console.log('res.data', res.data);
+  const res = await http.post<IRequest>('requests', data);
   return res.data;
 }
