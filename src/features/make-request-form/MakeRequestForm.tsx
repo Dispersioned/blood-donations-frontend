@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IPatient } from 'shared/types';
+import { FormLayout } from 'shared/ui/form-layout';
 import { Input } from 'shared/ui/input';
 
 import { makeRequestFormModel } from '.';
@@ -12,13 +13,6 @@ type MakeRequestFormProps = {
 
 const Wrapper = styled('div')`
   margin: 10px 0;
-`;
-
-const Form = styled('form')`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 15px;
 `;
 
 export function MakeRequestForm({ patient }: MakeRequestFormProps) {
@@ -41,10 +35,10 @@ export function MakeRequestForm({ patient }: MakeRequestFormProps) {
       <Dialog open={isShown} onClose={() => setIsShown(false)}>
         <DialogTitle>Запросить кровь</DialogTitle>
         <DialogContent>
-          <DialogContentText>Укажите необходимый объем</DialogContentText>
-          <Form id="make_request_form">
+          <FormLayout id="make_request_form">
+            <DialogContentText>Укажите необходимый объем</DialogContentText>
             <Input autoFocus control={control} label="Объем крови" name="volume" rules={{ required: true }} />
-          </Form>
+          </FormLayout>
         </DialogContent>
         <DialogActions>
           <Button form="make_request_form" type="submit" onClick={handleSubmit(onSubmit)}>

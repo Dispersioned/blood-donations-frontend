@@ -1,6 +1,7 @@
 import { Typography, styled } from '@mui/material';
 import { authModel } from 'pages/auth';
 import { useForm } from 'react-hook-form';
+import { FormLayout } from 'shared/ui/form-layout';
 import { RegisterFields } from 'shared/ui/register-fields';
 
 import { LoginActionBtns } from './LoginActionBtns';
@@ -10,13 +11,6 @@ import { RegisterActionBtns } from './RegisterActionBtns';
 type AuthFormProps = {
   type: 'login' | 'register';
 };
-
-export const FormLayout = styled('form')`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 350px;
-`;
 
 export const ActionBtns = styled('div')`
   display: flex;
