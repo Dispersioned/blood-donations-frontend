@@ -7,6 +7,7 @@ import {
   IPatient,
   IRegisterPatientDto,
   IRegisterUserDto,
+  IRequest,
   IUser,
 } from 'shared/types';
 
@@ -63,6 +64,11 @@ export async function fetchDoctors() {
 
 export async function fetchAllPatients() {
   const res = await http.get<IPatient[]>('patients');
+  return res.data;
+}
+
+export async function fetchAllRequests() {
+  const res = await http.get<IRequest[]>('requests');
   return res.data;
 }
 

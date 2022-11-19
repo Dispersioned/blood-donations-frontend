@@ -84,6 +84,12 @@ export type IPatient = Timestamp &
     doctor: IUser;
   };
 
+export type IRequest = Timestamp &
+  Id & {
+    patient: IPatient;
+    volume: number;
+  };
+
 //* events
 
 export type IRegisterEvent = {
