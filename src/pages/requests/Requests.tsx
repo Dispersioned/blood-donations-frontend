@@ -3,7 +3,7 @@ import { useUnit } from 'effector-react';
 import { $user } from 'entities/viewer/model';
 import { ConfirmRequest } from 'features/confirm-request';
 import { useEffect } from 'react';
-import { canConfirmDonation } from 'shared/lib/access/canConfirmDonation';
+import { canConfirmRequest } from 'shared/lib/access/canConfirmDonation';
 import { Layout } from 'shared/ui/layout';
 
 import { requestsModel } from '.';
@@ -56,7 +56,7 @@ export function Requests() {
                 </span>{' '}
                 мл
               </Typography>
-              {canConfirmDonation(user.role.value) && <ConfirmRequest requestId={request.id} />}
+              {canConfirmRequest(user.role.value) && <ConfirmRequest requestId={request.id} />}
             </Flex>
           </RequestCard>
         ))}

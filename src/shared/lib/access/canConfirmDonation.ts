@@ -1,6 +1,6 @@
 import { IRoleName } from 'shared/types';
 
-export function canConfirmDonation(role: IRoleName) {
+export function canConfirmRequest(role: IRoleName) {
   const roles: IRoleName[] = ['DOCTOR', 'ADMIN'];
   return roles.includes(role);
 }
