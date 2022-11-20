@@ -1,7 +1,8 @@
-import { Button, Card, Tooltip, Typography, styled } from '@mui/material';
+import { Card, Typography, styled } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { $user } from 'entities/viewer/model';
-import React, { useEffect } from 'react';
+import { ConfirmRequest } from 'features/confirm-request';
+import { useEffect } from 'react';
 import { canConfirmDonation } from 'shared/lib/access/canConfirmDonation';
 import { Layout } from 'shared/ui/layout';
 
@@ -55,13 +56,7 @@ export function Requests() {
                 </span>{' '}
                 мл
               </Typography>
-              {canConfirmDonation(user.role.value) && (
-                <Button variant="contained">
-                  <Tooltip title="Назначенный больной получит кровь">
-                    <span>Утвердить</span>
-                  </Tooltip>
-                </Button>
-              )}
+              {canConfirmDonation(user.role.value) && <ConfirmRequest requestId={request.id} />}
             </Flex>
           </RequestCard>
         ))}
