@@ -18,12 +18,13 @@ export function Routing() {
     viewerModel.checkToken();
   }, []);
 
+  // TODO create v6.4 router instead
   return (
     <Routes>
       <Route element={<PrivateRoute />}>
         <Route index element={<Home />} />
         <Route path={ROUTES.hospitals} element={<Hospitals />} />
-        <Route element={<RoleRoute roles={['PATIENT']} />}>
+        <Route element={<RoleRoute roles={['PATIENT', 'DOCTOR', 'ADMIN']} />}>
           <Route path={ROUTES.requests} element={<Requests />} />
         </Route>
         <Route element={<RoleRoute roles={['ADMIN', 'DOCTOR']} />}>
