@@ -1,12 +1,11 @@
-import { Card, Typography, styled } from '@mui/material';
+import { Card, Chip, Typography, styled } from '@mui/material';
 import { useUnit } from 'effector-react';
+import { requestsModel } from 'entities/requests';
 import { $user } from 'entities/viewer/model';
 import { ConfirmRequest } from 'features/confirm-request';
 import { useEffect } from 'react';
 import { canConfirmRequest } from 'shared/lib/access/canConfirmDonation';
 import { Layout } from 'shared/ui/layout';
-
-import { requestsModel } from '.';
 
 const List = styled('div')`
   display: grid;
@@ -56,7 +55,11 @@ export function Requests() {
                 </span>{' '}
                 мл
               </Typography>
-              {canConfirmRequest(user.role.value) && <ConfirmRequest requestId={request.id} />}
+              {request.status === 'FULFILLED' ? (
+                <Chip color="success" label="Выполнен" style={{ width: 115, height: 35, fontSize: 16 }} />
+              ) : (
+                canConfirmRequest(user.role.value) && <ConfirmRequest requestId={request.id} />
+              )}
             </Flex>
           </RequestCard>
         ))}

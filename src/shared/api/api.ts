@@ -1,4 +1,5 @@
 import {
+  IConfirmRequestDto,
   ICreateDonationDto,
   ICreateRequestDto,
   IDonation,
@@ -80,5 +81,10 @@ export async function fetchPatientInfo(patientId: number) {
 
 export async function makeDonationRequest(data: ICreateRequestDto) {
   const res = await http.post<IRequest>('requests', data);
+  return res.data;
+}
+
+export async function confirmRequest(data: IConfirmRequestDto) {
+  const res = await http.post<IRequest>('request-confirmer', data);
   return res.data;
 }

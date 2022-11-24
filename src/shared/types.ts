@@ -46,6 +46,10 @@ export interface ICreateRequestDto {
   volume: number;
 }
 
+export interface IConfirmRequestDto {
+  requestId: number;
+}
+
 //* types
 
 export type IHospitalBlood = Timestamp &
