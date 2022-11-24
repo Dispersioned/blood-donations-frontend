@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Layout } from 'shared/ui/layout';
 
 import { HospitalCard } from './HospitalCard';
-import { $hospitals, fetchHospitals } from './model';
+import { $hospitals, fetch } from './model';
 
 const HospitalsList = styled('div')`
   display: grid;
@@ -14,7 +14,7 @@ const HospitalsList = styled('div')`
 
 export function Hospitals() {
   useEffect(() => {
-    fetchHospitals();
+    fetch();
   }, []);
 
   const hospitals = useUnit($hospitals);
