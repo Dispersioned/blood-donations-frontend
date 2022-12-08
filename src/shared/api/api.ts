@@ -3,6 +3,7 @@ import {
   ICreateDonationDto,
   ICreateHospitalDto,
   ICreateRequestDto,
+  IDeleteHospitalDto,
   IDonation,
   IHospital,
   ILoginUserDto,
@@ -98,5 +99,10 @@ export async function createHospital(data: ICreateHospitalDto) {
 
 export async function updateHospital(data: IUpdateHospitalDto) {
   const res = await http.put<IHospital>('hospitals', data);
+  return res.data;
+}
+
+export async function deleteHospital(data: IDeleteHospitalDto) {
+  const res = await http.delete<IHospital>('hospitals', { data });
   return res.data;
 }

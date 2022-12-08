@@ -106,6 +106,10 @@ export type ICreateHospitalDto = {
   location: string;
 };
 
+export type IDeleteHospitalDto = {
+  hospitalId: number;
+};
+
 export type IUpdateHospitalDto = {
   hospitalId: number;
   name: string;

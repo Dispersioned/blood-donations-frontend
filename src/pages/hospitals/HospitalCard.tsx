@@ -1,6 +1,7 @@
 import { Card, CardContent as MUICardContent, Typography, styled } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { $user } from 'entities/viewer/model';
+import { DeleteHospitalForm } from 'features/delete-hospital-form';
 import { DonateBloodForm } from 'features/donate-blood-form';
 import { UpdateHospitalForm } from 'features/update-hospital-form';
 import React from 'react';
@@ -28,7 +29,12 @@ export function HospitalCard({ hospital }: HospitalCardProps) {
         </div>
         <div style={{ display: 'flex', gap: 10, flexDirection: 'column' }}>
           <DonateBloodForm hospitalId={hospital.id} />
-          {isAdmin(user.role.value) && <UpdateHospitalForm hospital={hospital} />}
+          {isAdmin(user.role.value) && (
+            <div style={{ display: 'flex' }}>
+              <UpdateHospitalForm hospital={hospital} />
+              <DeleteHospitalForm hospitalId={hospital.id} />
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
