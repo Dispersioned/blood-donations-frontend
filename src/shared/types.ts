@@ -101,6 +101,11 @@ export type IRequestWithInfo = {
   availableVolume: number;
 };
 
+export type ICreateHospitalDto = {
+  name: string;
+  location: string;
+};
+
 //* events
 
 export type IRegisterEvent = {

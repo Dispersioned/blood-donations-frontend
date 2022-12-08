@@ -1,6 +1,7 @@
 import {
   IConfirmRequestDto,
   ICreateDonationDto,
+  ICreateHospitalDto,
   ICreateRequestDto,
   IDonation,
   IHospital,
@@ -86,5 +87,10 @@ export async function makeDonationRequest(data: ICreateRequestDto) {
 
 export async function confirmRequest(data: IConfirmRequestDto) {
   const res = await http.post<IRequest>('request-confirmer', data);
+  return res.data;
+}
+
+export async function createHospital(data: ICreateHospitalDto) {
+  const res = await http.post<IHospital>('hospitals', data);
   return res.data;
 }
