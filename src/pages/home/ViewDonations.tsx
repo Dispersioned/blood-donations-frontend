@@ -38,19 +38,23 @@ export function ViewDonations() {
   return (
     <Wrapper>
       <Typography variant="h4">Сданная кровь</Typography>
-      <List>
-        {donations.map((donation) => (
-          <DonationCard key={donation.id}>
-            <div>
-              <Typography variant="h6">{donation.hospitalBlood.hospital.name}</Typography>
-              <Typography>{formatDate(donation.createdAt)}</Typography>
-            </div>
-            <Typography>
-              <span style={{ fontSize: '1.7em' }}>{donation.volume}</span> мл
-            </Typography>
-          </DonationCard>
-        ))}
-      </List>
+      {donations.length > 0 ? (
+        <List>
+          {donations.map((donation) => (
+            <DonationCard key={donation.id}>
+              <div>
+                <Typography variant="h6">{donation.hospitalBlood.hospital.name}</Typography>
+                <Typography>{formatDate(donation.createdAt)}</Typography>
+              </div>
+              <Typography>
+                <span style={{ fontSize: '1.7em' }}>{donation.volume}</span> мл
+              </Typography>
+            </DonationCard>
+          ))}
+        </List>
+      ) : (
+        <Typography>Вы не сдавали кровь</Typography>
+      )}
     </Wrapper>
   );
 }

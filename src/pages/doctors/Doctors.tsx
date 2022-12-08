@@ -19,13 +19,17 @@ export function Doctors() {
   return (
     <Layout title="Доктора">
       {isAdmin(user.role.value) && <RegisterDoctorForm />}
-      <div style={{ marginTop: 15 }}>
-        {doctors.map((doctor, i) => (
-          <Typography key={doctor.id} fontSize={22}>
-            {i + 1}. {doctor.username}
-          </Typography>
-        ))}
-      </div>
+      {doctors.length > 0 ? (
+        <div style={{ marginTop: 15 }}>
+          {doctors.map((doctor, i) => (
+            <Typography key={doctor.id} fontSize={22}>
+              {i + 1}. {doctor.username}
+            </Typography>
+          ))}
+        </div>
+      ) : (
+        <Typography style={{ marginTop: 15 }}>Докторов еще нет</Typography>
+      )}
     </Layout>
   );
 }

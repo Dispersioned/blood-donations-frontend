@@ -17,20 +17,24 @@ export function Patients() {
   return (
     <Layout title="Пациенты">
       <RegisterPatientForm />
-      <div style={{ marginTop: 15 }}>
-        {groupPatientsByHospitals(patients).map(([hospitalId, data]) => (
-          <div key={hospitalId}>
-            <Typography variant="h5" fontWeight="bold">
-              {data.hospital.name}
-            </Typography>
-            {data.patients.map(({ user, doctor, id }, i) => (
-              <Typography key={id} fontSize={22}>
-                {i + 1}. Пациент: {user.username}. Доктор {doctor.username}
+      {patients.length > 0 ? (
+        <div style={{ marginTop: 15 }}>
+          {groupPatientsByHospitals(patients).map(([hospitalId, data]) => (
+            <div key={hospitalId}>
+              <Typography variant="h5" fontWeight="bold">
+                {data.hospital.name}
               </Typography>
-            ))}
-          </div>
-        ))}
-      </div>
+              {data.patients.map(({ user, doctor, id }, i) => (
+                <Typography key={id} fontSize={22}>
+                  {i + 1}. Пациент: {user.username}. Доктор {doctor.username}
+                </Typography>
+              ))}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <Typography style={{ marginTop: 15 }}>Пациентов еще нет</Typography>
+      )}
     </Layout>
   );
 }

@@ -35,35 +35,39 @@ export function Requests() {
 
   return (
     <Layout title="Запросы крови">
-      <List>
-        {requests.map(({ request, availableVolume }) => (
-          <RequestCard key={request.id}>
-            <Typography>Пациент: {request.patient.user.username}</Typography>
-            <Typography>Лечащий доктор: {request.patient.doctor.username}</Typography>
-            <Typography>Больница: {request.patient.hospital.name}</Typography>
-            <Typography>
-              Кровь:{' '}
-              <b>
-                {request.patient.user.blood.group}
-                {request.patient.user.blood.rhFactor}
-              </b>
-            </Typography>
-            <Flex>
+      {requests.length > 0 ? (
+        <List>
+          {requests.map(({ request, availableVolume }) => (
+            <RequestCard key={request.id}>
+              <Typography>Пациент: {request.patient.user.username}</Typography>
+              <Typography>Лечащий доктор: {request.patient.doctor.username}</Typography>
+              <Typography>Больница: {request.patient.hospital.name}</Typography>
               <Typography>
-                <span style={{ fontSize: 25 }}>
-                  {availableVolume} / {request.volume}
-                </span>{' '}
-                мл
+                Кровь:{' '}
+                <b>
+                  {request.patient.user.blood.group}
+                  {request.patient.user.blood.rhFactor}
+                </b>
               </Typography>
-              {request.status === 'FULFILLED' ? (
-                <Chip color="success" label="Выполнен" style={{ width: 115, height: 35, fontSize: 16 }} />
-              ) : (
-                canConfirmRequest(user.role.value) && <ConfirmRequest requestId={request.id} />
-              )}
-            </Flex>
-          </RequestCard>
-        ))}
-      </List>
+              <Flex>
+                <Typography>
+                  <span style={{ fontSize: 25 }}>
+                    {availableVolume} / {request.volume}
+                  </span>{' '}
+                  мл
+                </Typography>
+                {request.status === 'FULFILLED' ? (
+                  <Chip color="success" label="Выполнен" style={{ width: 115, height: 35, fontSize: 16 }} />
+                ) : (
+                  canConfirmRequest(user.role.value) && <ConfirmRequest requestId={request.id} />
+                )}
+              </Flex>
+            </RequestCard>
+          ))}
+        </List>
+      ) : (
+        <Typography>Нет запросов на переливание крови</Typography>
+      )}
     </Layout>
   );
 }
