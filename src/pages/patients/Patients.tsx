@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { patientsModel } from 'entities/patients';
 import { RegisterPatientForm } from 'features/register-patient-form';
@@ -25,9 +25,17 @@ export function Patients() {
                 {data.hospital.name}
               </Typography>
               {data.patients.map(({ user, doctor, id }, i) => (
-                <Typography key={id} fontSize={22}>
-                  {i + 1}. Пациент: {user.username}. Доктор {doctor.username}
-                </Typography>
+                <div
+                  key={id}
+                  style={{
+                    display: 'flex',
+                    gap: 15,
+                  }}
+                >
+                  <Typography fontSize={22}>{i + 1}.</Typography>
+                  <Typography fontSize={22}>{user.username}</Typography>
+                  <Typography fontSize={22}>{doctor.username}</Typography>
+                </div>
               ))}
             </div>
           ))}

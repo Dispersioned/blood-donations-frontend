@@ -13,7 +13,7 @@ export function Home() {
 
   return (
     <Layout title="Мой профиль">
-      <Typography fontSize={22}>Имя: {user.username}</Typography>
+      <Typography fontSize={22}>ФИО: {user.username}</Typography>
       <Typography fontSize={22}>Роль: {user.role.value}</Typography>
       <Typography fontSize={22}>
         Тип крови: {user.blood.group}
