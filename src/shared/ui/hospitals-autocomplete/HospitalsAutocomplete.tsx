@@ -13,12 +13,10 @@ export function HospitalsAutocomplete({ control }: HospitalsAutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const hospitals = useUnit(hospitalsAutocompleteModel.$hospitals);
-  const fetched = useUnit(hospitalsAutocompleteModel.$fetched);
-  const loading = isOpen && !fetched;
 
   useEffect(() => {
-    if (loading) hospitalsAutocompleteModel.fetch();
-  }, [loading]);
+    if (isOpen) hospitalsAutocompleteModel.fetch();
+  }, [isOpen]);
 
   return (
     <Controller
@@ -47,12 +45,6 @@ export function HospitalsAutocomplete({ control }: HospitalsAutocompleteProps) {
               label="Больница"
               InputProps={{
                 ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
               }}
             />
           )}

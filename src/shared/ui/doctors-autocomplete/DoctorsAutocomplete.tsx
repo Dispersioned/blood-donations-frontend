@@ -1,4 +1,4 @@
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { Autocomplete, TextField } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
@@ -13,12 +13,10 @@ export function DoctorsAutocomplete({ control }: DoctorsAutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const doctors = useUnit(doctorsAutocompleteModel.$doctors);
-  const fetched = useUnit(doctorsAutocompleteModel.$fetched);
-  const loading = isOpen && !fetched;
 
   useEffect(() => {
-    if (loading) doctorsAutocompleteModel.fetch();
-  }, [loading]);
+    if (isOpen) doctorsAutocompleteModel.fetch();
+  }, [isOpen]);
 
   return (
     <Controller
@@ -47,12 +45,6 @@ export function DoctorsAutocomplete({ control }: DoctorsAutocompleteProps) {
               label="Лечащий доктор"
               InputProps={{
                 ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
               }}
             />
           )}
