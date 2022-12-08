@@ -106,6 +106,12 @@ export type ICreateHospitalDto = {
   location: string;
 };
 
+export type IUpdateHospitalDto = {
+  hospitalId: number;
+  name: string;
+  location: string;
+};
+
 //* events
 
 export type IRegisterEvent = {

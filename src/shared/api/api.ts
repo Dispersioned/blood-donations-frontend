@@ -11,6 +11,7 @@ import {
   IRegisterUserDto,
   IRequest,
   IRequestWithInfo,
+  IUpdateHospitalDto,
   IUser,
 } from 'shared/types';
 
@@ -92,5 +93,10 @@ export async function confirmRequest(data: IConfirmRequestDto) {
 
 export async function createHospital(data: ICreateHospitalDto) {
   const res = await http.post<IHospital>('hospitals', data);
+  return res.data;
+}
+
+export async function updateHospital(data: IUpdateHospitalDto) {
+  const res = await http.put<IHospital>('hospitals', data);
   return res.data;
 }
