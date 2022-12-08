@@ -1,6 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { patientsModel } from 'entities/patients';
+import { EditPatientForm } from 'features/edit-patient-form';
 import { RegisterPatientForm } from 'features/register-patient-form';
 import { useEffect } from 'react';
 import { Layout } from 'shared/ui/layout';
@@ -24,17 +25,18 @@ export function Patients() {
               <Typography variant="h5" fontWeight="bold">
                 {data.hospital.name}
               </Typography>
-              {data.patients.map(({ user, doctor, id }, i) => (
+              {data.patients.map((patient, i) => (
                 <div
-                  key={id}
+                  key={patient.id}
                   style={{
                     display: 'flex',
                     gap: 15,
                   }}
                 >
                   <Typography fontSize={22}>{i + 1}.</Typography>
-                  <Typography fontSize={22}>{user.username}</Typography>
-                  <Typography fontSize={22}>{doctor.username}</Typography>
+                  <Typography fontSize={22}>{patient.user.username}</Typography>
+                  <Typography fontSize={22}>{patient.doctor.username}</Typography>
+                  <EditPatientForm patient={patient} />
                 </div>
               ))}
             </div>

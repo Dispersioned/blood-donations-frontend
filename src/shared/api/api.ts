@@ -13,6 +13,7 @@ import {
   IRequest,
   IRequestWithInfo,
   IUpdateHospitalDto,
+  IUpdatePatientDto,
   IUser,
 } from 'shared/types';
 
@@ -40,6 +41,11 @@ export async function registerDoctor(data: IRegisterUserDto) {
 
 export async function registerPatient(data: IRegisterPatientDto) {
   const res = await http.post<{ user: IPatient; token: string }>('auth/register-patient', data);
+  return res.data;
+}
+
+export async function updatePatient(data: IUpdatePatientDto) {
+  const res = await http.put('patients', data);
   return res.data;
 }
 

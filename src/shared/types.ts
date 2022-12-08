@@ -101,6 +101,13 @@ export type IRequestWithInfo = {
   availableVolume: number;
 };
 
+export type IUpdatePatientDto = {
+  patientId: number;
+  username: string;
+  doctorId: number;
+  hospitalId: number;
+};
+
 export type ICreateHospitalDto = {
   name: string;
   location: string;

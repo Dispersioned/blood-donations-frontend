@@ -2,14 +2,16 @@ import { Autocomplete, TextField } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
+import { IUser } from 'shared/types';
 
 import { doctorsAutocompleteModel } from '.';
 
 type DoctorsAutocompleteProps = {
   control: Control<FieldValues, any>;
+  defaultValue?: IUser;
 };
 
-export function DoctorsAutocomplete({ control }: DoctorsAutocompleteProps) {
+export function DoctorsAutocomplete({ control, defaultValue }: DoctorsAutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const doctors = useUnit(doctorsAutocompleteModel.$doctors);
@@ -20,7 +22,7 @@ export function DoctorsAutocomplete({ control }: DoctorsAutocompleteProps) {
 
   return (
     <Controller
-      defaultValue={null}
+      defaultValue={defaultValue || null}
       name="doctor"
       control={control}
       rules={{ required: true }}

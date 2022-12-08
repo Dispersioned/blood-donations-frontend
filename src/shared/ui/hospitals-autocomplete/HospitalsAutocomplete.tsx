@@ -2,14 +2,16 @@ import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
+import { IHospital } from 'shared/types';
 
 import { hospitalsAutocompleteModel } from '.';
 
 type HospitalsAutocompleteProps = {
   control: Control<FieldValues, any>;
+  defaultValue?: IHospital;
 };
 
-export function HospitalsAutocomplete({ control }: HospitalsAutocompleteProps) {
+export function HospitalsAutocomplete({ control, defaultValue }: HospitalsAutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const hospitals = useUnit(hospitalsAutocompleteModel.$hospitals);
@@ -20,7 +22,7 @@ export function HospitalsAutocomplete({ control }: HospitalsAutocompleteProps) {
 
   return (
     <Controller
-      defaultValue={null}
+      defaultValue={defaultValue || null}
       name="hospital"
       control={control}
       rules={{ required: true }}
