@@ -1,6 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import { useUnit } from 'effector-react';
 import { patientsModel } from 'entities/patients';
+import { DeleteUserForm, deleteUserFormModel } from 'features/delete-user-form';
 import { EditPatientForm } from 'features/edit-patient-form';
 import { RegisterPatientForm } from 'features/register-patient-form';
 import { useEffect } from 'react';
@@ -14,6 +15,7 @@ export function Patients() {
   }, []);
 
   const patients = useUnit(patientsModel.$patients);
+  const deletePatient = useUnit(deleteUserFormModel.deletePatient);
 
   return (
     <Layout title="Пациенты">
@@ -30,13 +32,21 @@ export function Patients() {
                   key={patient.id}
                   style={{
                     display: 'flex',
-                    gap: 15,
+                    alignItems: 'center',
+                    gap: 10,
                   }}
                 >
                   <Typography fontSize={22}>{i + 1}.</Typography>
                   <Typography fontSize={22}>{patient.user.username}</Typography>
                   <Typography fontSize={22}>{patient.doctor.username}</Typography>
-                  <EditPatientForm patient={patient} />
+                  <div
+                    style={{
+                      display: 'flex',
+                    }}
+                  >
+                    <EditPatientForm patient={patient} />
+                    <DeleteUserForm userId={patient.user.id} handler={deletePatient} />
+                  </div>
                 </div>
               ))}
             </div>
