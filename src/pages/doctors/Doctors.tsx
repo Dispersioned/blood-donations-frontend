@@ -3,6 +3,7 @@ import { useUnit } from 'effector-react';
 import { doctorsModel } from 'entities/doctors';
 import { $user } from 'entities/viewer/model';
 import { DeleteUserForm, deleteUserFormModel } from 'features/delete-user-form';
+import { EditDoctorForm } from 'features/edit-doctor-form';
 import { RegisterDoctorForm } from 'features/register-doctor-form';
 import { useEffect } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
@@ -34,7 +35,10 @@ export function Doctors() {
             >
               <Typography fontSize={22}>{i + 1}.</Typography>
               <Typography fontSize={22}>{doctor.username}</Typography>
-              <DeleteUserForm userId={doctor.id} handler={deleteDoctor} />
+              <div style={{ display: 'flex' }}>
+                <EditDoctorForm doctor={doctor} />
+                <DeleteUserForm userId={doctor.id} handler={deleteDoctor} />
+              </div>
             </div>
           ))}
         </div>

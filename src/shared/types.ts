@@ -108,6 +108,11 @@ export type IUpdatePatientDto = {
   hospitalId: number;
 };
 
+export type IUpdateDoctorDto = {
+  userId: number;
+  username: string;
+};
+
 export type ICreateHospitalDto = {
   name: string;
   location: string;

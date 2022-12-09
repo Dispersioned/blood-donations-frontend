@@ -13,6 +13,7 @@ import {
   IRegisterUserDto,
   IRequest,
   IRequestWithInfo,
+  IUpdateDoctorDto,
   IUpdateHospitalDto,
   IUpdatePatientDto,
   IUser,
@@ -47,6 +48,11 @@ export async function registerPatient(data: IRegisterPatientDto) {
 
 export async function updatePatient(data: IUpdatePatientDto) {
   const res = await http.put('patients', data);
+  return res.data;
+}
+
+export async function updateDoctor(data: IUpdateDoctorDto) {
+  const res = await http.put('users/doctor', data);
   return res.data;
 }
 
