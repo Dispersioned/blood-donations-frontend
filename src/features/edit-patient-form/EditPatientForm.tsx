@@ -1,21 +1,12 @@
 import EditIcon from '@mui/icons-material/Edit';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-} from '@mui/material';
-import React, { useState } from 'react';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IPatient } from 'shared/types';
 import { DoctorsAutocomplete } from 'shared/ui/doctors-autocomplete';
 import { FormLayout } from 'shared/ui/form-layout';
 import { HospitalsAutocomplete } from 'shared/ui/hospitals-autocomplete';
 import { Input } from 'shared/ui/input';
-import { RegisterFields } from 'shared/ui/register-fields';
 
 import { editPatientFormModel } from '.';
 

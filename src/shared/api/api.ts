@@ -4,6 +4,7 @@ import {
   ICreateHospitalDto,
   ICreateRequestDto,
   IDeleteHospitalDto,
+  IDeleteUserDto,
   IDonation,
   IHospital,
   ILoginUserDto,
@@ -110,5 +111,15 @@ export async function updateHospital(data: IUpdateHospitalDto) {
 
 export async function deleteHospital(data: IDeleteHospitalDto) {
   const res = await http.delete<IHospital>('hospitals', { data });
+  return res.data;
+}
+
+export async function deleteDoctor(data: IDeleteUserDto) {
+  const res = await http.delete<void>('user-delete/doctor', { data });
+  return res.data;
+}
+
+export async function deletePatient(data: IDeleteUserDto) {
+  const res = await http.delete<void>('user-delete/patient', { data });
   return res.data;
 }

@@ -94,5 +94,3 @@ sample({
   clock: [loginFx.doneData, validateTokenFx.doneData],
   target: $userSys,
 });
-
-loginFx.fail.watch(() => messagerModel.showError({ msg: 'Неправильный логин или пароль' }));

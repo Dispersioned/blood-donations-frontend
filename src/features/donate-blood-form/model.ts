@@ -16,4 +16,3 @@ sample({
 });
 
 donateFx.doneData.watch(() => messagerModel.showMessage({ type: 'success', msg: 'Кровь сдана' }));
-donateFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));

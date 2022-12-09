@@ -117,6 +117,10 @@ export type IDeleteHospitalDto = {
   hospitalId: number;
 };
 
+export type IDeleteUserDto = {
+  userId: number;
+};
+
 export type IUpdateHospitalDto = {
   hospitalId: number;
   name: string;

@@ -20,4 +20,3 @@ createFx.doneData.watch(() => {
   messagerModel.showMessage({ type: 'success', msg: 'Больница создана' });
   hospitalsModel.fetch();
 });
-createFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));

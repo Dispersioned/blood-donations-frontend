@@ -17,7 +17,6 @@ sample({
 });
 
 confirmFx.doneData.watch(() => messagerModel.showMessage({ type: 'success', msg: 'Запрос создан' }));
-confirmFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));
 
 sample({
   clock: confirmFx.doneData,

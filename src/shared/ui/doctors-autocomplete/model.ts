@@ -10,10 +10,6 @@ export const fetchFx = createEffect(async () => {
 });
 
 export const $doctors = createStore<IUser[]>([]);
-// export const $fetched = createStore(false);
-
-// $fetched.on(fetchFx.done, () => true);
-// $fetched.on(fetchFx.fail, () => true);
 
 sample({
   clock: fetch,

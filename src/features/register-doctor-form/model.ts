@@ -19,7 +19,6 @@ registerFx.doneData.watch((doctor) => {
   messagerModel.showMessage({ type: 'success', msg: 'Доктор зарегистрирован' });
   doctorsModel.add(doctor);
 });
-registerFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));
 
 sample({
   clock: passwordsEqual,

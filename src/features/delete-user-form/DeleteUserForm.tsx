@@ -12,29 +12,31 @@ import { useUnit } from 'effector-react';
 import { $user } from 'entities/viewer/model';
 import { useState } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
+import { IDeleteUserDto } from 'shared/types';
 
-import { deleteHospitalModel } from '.';
-
-type DeleteHospitalFormProps = {
-  hospitalId: number;
+type DeleteUserFormProps = {
+  userId: number;
+  handler: (payload: IDeleteUserDto) => IDeleteUserDto;
 };
 
-export function DeleteHospitalForm({ hospitalId }: DeleteHospitalFormProps) {
+export function DeleteUserForm({ userId, handler }: DeleteUserFormProps) {
   const user = useUnit($user);
   const [isShown, setIsShown] = useState(false);
 
   return (
     <div>
-      <IconButton onClick={() => setIsShown(true)} disabled={!isAdmin(user.role.value)}>
-        <DeleteIcon />
-      </IconButton>
+      {isAdmin(user.role.value) && (
+        <IconButton onClick={() => setIsShown(true)}>
+          <DeleteIcon />
+        </IconButton>
+      )}
       <Dialog open={isShown} onClose={() => setIsShown(false)}>
-        <DialogTitle>Удалить больницуц</DialogTitle>
+        <DialogTitle>Удалить пользователя</DialogTitle>
         <DialogContent>
           <DialogContentText>Внимание: это действие необратимо</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => deleteHospitalModel.update({ hospitalId })} color="error">
+          <Button onClick={() => handler({ userId })} color="error">
             Удалить
           </Button>
         </DialogActions>

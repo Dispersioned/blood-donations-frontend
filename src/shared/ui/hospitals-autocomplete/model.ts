@@ -10,10 +10,6 @@ export const fetchFx = createEffect(async () => {
 });
 
 export const $hospitals = createStore<IHospital[]>([]);
-// export const $fetched = createStore(false);
-
-// $fetched.on(fetchFx.done, () => true);
-// $fetched.on(fetchFx.fail, () => true);
 
 sample({
   clock: fetch,

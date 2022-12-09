@@ -20,4 +20,3 @@ updateFx.doneData.watch(async () => {
   await hospitalsModel.fetch();
   messagerModel.showMessage({ type: 'success', msg: 'Больница создана' });
 });
-updateFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));

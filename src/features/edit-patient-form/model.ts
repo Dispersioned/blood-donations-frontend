@@ -21,4 +21,3 @@ updateFx.doneData.watch(async () => {
   await patientsModel.fetch();
   messagerModel.showMessage({ type: 'success', msg: 'Данные пациента изменены' });
 });
-updateFx.fail.watch(() => messagerModel.showError({ msg: 'Произошла ошибка' }));

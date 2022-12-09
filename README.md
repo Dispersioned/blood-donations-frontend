@@ -4,3 +4,6 @@
 1. Создать `.env` из `.env.example
 3. Установить зависимости `yarn`
 4. Запустить проект `yarn start`
+
+### TODO:
+1. Переделать формы на унифицированную с apiCall, onSuccess, onError, paramMapper и тд
