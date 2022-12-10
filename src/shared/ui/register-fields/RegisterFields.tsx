@@ -31,11 +31,11 @@ export function RegisterFields({ control }: RegisterFieldsProps) {
               <MenuItem value="0+">0+</MenuItem>
               <MenuItem value="0-">0-</MenuItem>
               <MenuItem value="A+">A+</MenuItem>
-              <MenuItem value="A+">A+</MenuItem>
+              <MenuItem value="A-">A-</MenuItem>
               <MenuItem value="B+">B+</MenuItem>
-              <MenuItem value="B+">B+</MenuItem>
+              <MenuItem value="B-">B-</MenuItem>
               <MenuItem value="AB+">AB+</MenuItem>
-              <MenuItem value="AB+">AB+</MenuItem>
+              <MenuItem value="AB-">AB-</MenuItem>
             </Select>
           </FormControl>
         )}
