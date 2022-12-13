@@ -39,7 +39,7 @@ export function CreateHospitalForm() {
         </DialogContent>
         <DialogActions>
           <Button form="create_hospital_form" type="submit" onClick={handleSubmit(onSubmit)}>
-            Сдать
+            Создать
           </Button>
         </DialogActions>
       </Dialog>

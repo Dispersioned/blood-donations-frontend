@@ -23,6 +23,11 @@ export function DeleteUserForm({ userId, handler }: DeleteUserFormProps) {
   const user = useUnit($user);
   const [isShown, setIsShown] = useState(false);
 
+  const onDelete = async () => {
+    await handler({ userId });
+    setIsShown(false);
+  };
+
   return (
     <div>
       {isAdmin(user.role.value) && (
@@ -36,7 +41,7 @@ export function DeleteUserForm({ userId, handler }: DeleteUserFormProps) {
           <DialogContentText>Внимание: это действие необратимо</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handler({ userId })} color="error">
+          <Button onClick={onDelete} color="error">
             Удалить
           </Button>
         </DialogActions>
