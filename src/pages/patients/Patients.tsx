@@ -37,8 +37,8 @@ export function Patients() {
                   }}
                 >
                   <Typography fontSize={22}>{i + 1}.</Typography>
-                  <Typography fontSize={22}>{patient.user.username}</Typography>
-                  <Typography fontSize={22}>{patient.doctor.username}</Typography>
+                  <Typography fontSize={22}>Пациент: {patient.user.username}</Typography>
+                  <Typography fontSize={22}>Доктор: {patient.doctor.username}</Typography>
                   <div
                     style={{
                       display: 'flex',
