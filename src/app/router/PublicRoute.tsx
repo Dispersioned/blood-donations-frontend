@@ -1,12 +1,12 @@
-import { useUnit } from 'effector-react';
 import { viewerModel } from 'entities/viewer';
+import { observer } from 'mobx-react-lite';
 import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
 
 export function PublicRoute() {
-  const user = useUnit(viewerModel.$userSys);
-
-  if (user) return <Navigate to={ROUTES.home} replace />;
+  if (viewerModel.user) return <Navigate to={ROUTES.home} replace />;
 
   return <Outlet />;
 }
+
+export default observer(PublicRoute);

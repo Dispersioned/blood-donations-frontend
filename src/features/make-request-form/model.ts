@@ -1,18 +1,17 @@
-import { createEffect, createEvent, sample } from 'effector';
 import { messagerModel } from 'entities/messager';
+import { makeAutoObservable } from 'mobx';
 import { makeDonationRequest } from 'shared/api';
 import { ICreateRequestDto } from 'shared/types';
 
-export const donate = createEvent<ICreateRequestDto>();
+class MakeRequestModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const donateFx = createEffect(async (data: ICreateRequestDto) => {
-  const donation = await makeDonationRequest(data);
-  return donation;
-});
+  async donate(data: ICreateRequestDto) {
+    await makeDonationRequest(data);
+    messagerModel.success('Запрос создан');
+  }
+}
 
-sample({
-  clock: donate,
-  target: donateFx,
-});
-
-donateFx.doneData.watch(() => messagerModel.showMessage({ type: 'success', msg: 'Запрос создан' }));
+export const makeRequestModel = new MakeRequestModel();

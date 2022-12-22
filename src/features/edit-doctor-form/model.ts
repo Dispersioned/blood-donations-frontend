@@ -1,23 +1,19 @@
-import { createEffect, createEvent, sample } from 'effector';
 import { doctorsModel } from 'entities/doctors';
 import { messagerModel } from 'entities/messager';
+import { makeAutoObservable } from 'mobx';
 import { updateDoctor } from 'shared/api';
 import { IUpdateDoctorDto } from 'shared/types';
 
-export const update = createEvent<IUpdateDoctorDto>();
+class EditDoctorModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const updateFx = createEffect(async (data: IUpdateDoctorDto) => {
-  const result = await updateDoctor(data);
-  return result;
-});
+  async update(data: IUpdateDoctorDto) {
+    await updateDoctor(data);
+    await doctorsModel.fetch();
+    messagerModel.success('Данные доктора изменены');
+  }
+}
 
-sample({
-  clock: update,
-  filter: updateFx.pending.map((is) => !is),
-  target: updateFx,
-});
-
-updateFx.doneData.watch(async () => {
-  await doctorsModel.fetch();
-  messagerModel.showMessage({ type: 'success', msg: 'Данные доктора изменены' });
-});
+export const editDoctorModel = new EditDoctorModel();

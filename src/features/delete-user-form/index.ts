@@ -1,2 +1,2 @@
-export * from './DeleteUserForm';
-export * as deleteUserFormModel from './model';
+export { default as DeleteUserForm } from './DeleteUserForm';
+export * from './model';

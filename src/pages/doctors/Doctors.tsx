@@ -1,30 +1,25 @@
 import { Typography } from '@mui/material';
-import { useUnit } from 'effector-react';
 import { doctorsModel } from 'entities/doctors';
-import { $user } from 'entities/viewer/model';
-import { DeleteUserForm, deleteUserFormModel } from 'features/delete-user-form';
+import { viewerModel } from 'entities/viewer';
+import { DeleteUserForm, deleteUserModel } from 'features/delete-user-form';
 import { EditDoctorForm } from 'features/edit-doctor-form';
 import { RegisterDoctorForm } from 'features/register-doctor-form';
+import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
 import { Layout } from 'shared/ui/layout';
 
-export function Doctors() {
-  const user = useUnit($user);
-
+function Doctors() {
   useEffect(() => {
     doctorsModel.fetch();
   }, []);
 
-  const doctors = useUnit(doctorsModel.$doctors);
-  const deleteDoctor = useUnit(deleteUserFormModel.deleteDoctor);
-
   return (
     <Layout title="Доктора">
-      {isAdmin(user.role.value) && <RegisterDoctorForm />}
-      {doctors.length > 0 ? (
+      {viewerModel.user && isAdmin(viewerModel.user.role.value) && <RegisterDoctorForm />}
+      {doctorsModel.doctors.length > 0 ? (
         <div style={{ marginTop: 15 }}>
-          {doctors.map((doctor, i) => (
+          {doctorsModel.doctors.map((doctor, i) => (
             <div
               key={doctor.id}
               style={{
@@ -37,7 +32,7 @@ export function Doctors() {
               <Typography fontSize={22}>{doctor.username}</Typography>
               <div style={{ display: 'flex' }}>
                 <EditDoctorForm doctor={doctor} />
-                <DeleteUserForm userId={doctor.id} handler={deleteDoctor} />
+                <DeleteUserForm userId={doctor.id} handler={deleteUserModel.deleteDoctor} />
               </div>
             </div>
           ))}
@@ -48,3 +43,5 @@ export function Doctors() {
     </Layout>
   );
 }
+
+export default observer(Doctors);

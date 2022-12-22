@@ -1,15 +1,17 @@
 import { Typography } from '@mui/material';
-import { useUnit } from 'effector-react';
 import { viewerModel } from 'entities/viewer';
+import { observer } from 'mobx-react-lite';
 import { canDonate } from 'shared/lib/access/canDonate';
 import { isPatient } from 'shared/lib/access/isPatient';
 import { Layout } from 'shared/ui/layout';
 
-import { PatientInfo } from './PatientInfo';
-import { ViewDonations } from './ViewDonations';
+import PatientInfo from './PatientInfo';
+import ViewDonations from './ViewDonations';
 
-export function Home() {
-  const user = useUnit(viewerModel.$user);
+function Home() {
+  const { user } = viewerModel;
+
+  if (!user) return null;
 
   return (
     <Layout title="Мой профиль">
@@ -19,8 +21,10 @@ export function Home() {
         Тип крови: {user.blood.group}
         {user.blood.rhFactor}
       </Typography>
-      {canDonate(user.role.value) && <ViewDonations />}
+      {canDonate(user.role.value) && <ViewDonations userId={user.id} />}
       {isPatient(user.role.value) && <PatientInfo patientId={user.id} />}
     </Layout>
   );
 }
+
+export default observer(Home);

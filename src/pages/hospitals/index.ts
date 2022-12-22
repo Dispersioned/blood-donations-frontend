@@ -1,2 +1,2 @@
-export * from './Hospitals';
-export * as hospitalsModel from './model';
+export { default as Hospitals } from './Hospitals';
+export * from './model';

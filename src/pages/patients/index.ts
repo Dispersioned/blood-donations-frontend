@@ -1,1 +1,1 @@
-export * from './Patients';
+export { default as Patients } from './Patients';

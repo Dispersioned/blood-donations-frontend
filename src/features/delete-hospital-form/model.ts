@@ -1,22 +1,19 @@
-import { createEffect, createEvent, sample } from 'effector';
 import { messagerModel } from 'entities/messager';
+import { makeAutoObservable } from 'mobx';
 import { hospitalsModel } from 'pages/hospitals';
 import { deleteHospital } from 'shared/api';
 import { IDeleteHospitalDto } from 'shared/types';
 
-export const update = createEvent<IDeleteHospitalDto>();
+class DeleteHospitalModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const updateFx = createEffect(async (data: IDeleteHospitalDto) => {
-  const result = await deleteHospital(data);
-  return result;
-});
+  async delete(data: IDeleteHospitalDto) {
+    await deleteHospital(data);
+    await hospitalsModel.fetch();
+    messagerModel.success('Больница удалена');
+  }
+}
 
-sample({
-  clock: update,
-  target: updateFx,
-});
-
-updateFx.doneData.watch(async () => {
-  await hospitalsModel.fetch();
-  messagerModel.showMessage({ type: 'success', msg: 'Больница удалена' });
-});
+export const deleteHospitalModel = new DeleteHospitalModel();

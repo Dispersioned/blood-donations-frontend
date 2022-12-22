@@ -1,2 +1,2 @@
-export * from './RegisterPatientForm';
-export * as registerPatientFormModel from './model';
+export { default as RegisterPatientForm } from './RegisterPatientForm';
+export * from './model';

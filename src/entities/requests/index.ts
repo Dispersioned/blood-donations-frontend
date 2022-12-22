@@ -1,1 +1,1 @@
-export * as requestsModel from './model/requests';
+export * from './model/requests';

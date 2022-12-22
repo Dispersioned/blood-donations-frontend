@@ -1,7 +1,6 @@
 import { styled } from '@mui/material';
-import { useUnit } from 'effector-react';
 import { viewerModel } from 'entities/viewer';
-import { $userSys } from 'entities/viewer/model';
+import { observer } from 'mobx-react-lite';
 import { LINKS } from 'shared/config/routes';
 
 import { NavLink } from './NavLink';
@@ -14,24 +13,24 @@ const AsideLayout = styled('aside')`
   box-shadow: 3px 0 5px rgba(0, 0, 0, 0.15);
 `;
 
-export function Aside() {
-  //* aside is available on login page too
-  const user = useUnit($userSys);
-
+function Aside() {
   return (
     <AsideLayout>
       <nav>
         <ul style={{ listStyleType: 'none', width: 200, display: 'flex', flexDirection: 'column' }}>
-          {LINKS.filter((link) => !link.access || (user && link.access && link.access.includes(user?.role.value))).map(
-            (link) => (
-              <NavLink key={link.url} url={link.url}>
-                {link.label}
-              </NavLink>
-            )
-          )}
+          {LINKS.filter(
+            (link) =>
+              !link.access || (viewerModel.user && link.access && link.access.includes(viewerModel.user.role.value))
+          ).map((link) => (
+            <NavLink key={link.url} url={link.url}>
+              {link.label}
+            </NavLink>
+          ))}
           <NavLink onClick={() => viewerModel.exit()}>Выйти</NavLink>
         </ul>
       </nav>
     </AsideLayout>
   );
 }
+
+export default observer(Aside);

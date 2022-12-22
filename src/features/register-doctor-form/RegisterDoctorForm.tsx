@@ -1,18 +1,19 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormLayout } from 'shared/ui/form-layout';
 import { RegisterFields } from 'shared/ui/register-fields';
 
-import { registerDoctorFormModel } from '.';
+import { registerDoctorModel } from './model';
 
-export function RegisterDoctorForm() {
+function RegisterDoctorForm() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsOpen(false);
-    registerDoctorFormModel.register(data);
+    registerDoctorModel.register(data);
   };
 
   return (
@@ -37,3 +38,5 @@ export function RegisterDoctorForm() {
     </>
   );
 }
+
+export default observer(RegisterDoctorForm);

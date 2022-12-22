@@ -1,24 +1,19 @@
-import { createEffect, createEvent, sample } from 'effector';
 import { messagerModel } from 'entities/messager';
 import { requestsModel } from 'entities/requests';
+import { makeAutoObservable } from 'mobx';
 import { confirmRequest } from 'shared/api';
 import { IConfirmRequestDto } from 'shared/types';
 
-export const confirm = createEvent<IConfirmRequestDto>();
+class ConfirmRequestModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const confirmFx = createEffect(async (data: IConfirmRequestDto) => {
-  const result = await confirmRequest(data);
-  return result;
-});
+  async confirm(data: IConfirmRequestDto) {
+    await confirmRequest(data);
+    await requestsModel.fetch();
+    messagerModel.success('Запрос подтвержден');
+  }
+}
 
-sample({
-  clock: confirm,
-  target: confirmFx,
-});
-
-confirmFx.doneData.watch(() => messagerModel.showMessage({ type: 'success', msg: 'Запрос создан' }));
-
-sample({
-  clock: confirmFx.doneData,
-  target: requestsModel.fetch,
-});
+export const confirmRequestModel = new ConfirmRequestModel();

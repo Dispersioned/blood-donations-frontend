@@ -1,2 +1,2 @@
-export * from './EditDoctorForm';
-export * as editDoctorFormModel from './model';
+export { default as EditDoctorForm } from './EditDoctorForm';
+export * from './model';

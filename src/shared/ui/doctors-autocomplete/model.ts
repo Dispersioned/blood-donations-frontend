@@ -1,23 +1,20 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { makeAutoObservable } from 'mobx';
 import { fetchDoctors } from 'shared/api';
 import { IUser } from 'shared/types';
 
-export const fetch = createEvent();
+class DoctorsAutocompleteModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-export const fetchFx = createEffect(async () => {
-  const donations = await fetchDoctors();
-  return donations;
-});
+  doctors: IUser[] = [];
 
-export const $doctors = createStore<IUser[]>([]);
+  async fetch() {
+    const doctors = await fetchDoctors();
+    if (doctors) {
+      this.doctors = doctors;
+    }
+  }
+}
 
-sample({
-  clock: fetch,
-  filter: fetchFx.pending.map((is) => !is),
-  target: fetchFx,
-});
-
-sample({
-  clock: fetchFx.doneData,
-  target: $doctors,
-});
+export const doctorsAutocompleteModel = new DoctorsAutocompleteModel();

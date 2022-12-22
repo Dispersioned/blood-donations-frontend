@@ -1,1 +1,1 @@
-export * as doctorsModel from './model/doctors';
+export * from './model/doctors';

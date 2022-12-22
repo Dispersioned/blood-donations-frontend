@@ -11,7 +11,9 @@ http.interceptors.response.use(
     return response;
   },
   (error) => {
-    messagerModel.showError({ msg: error.response.data.message });
+    console.log('error', error);
+    // messagerModel.error(error.message);
+    messagerModel.error(error.response.data.message);
     return Promise.reject(error);
   }
 );

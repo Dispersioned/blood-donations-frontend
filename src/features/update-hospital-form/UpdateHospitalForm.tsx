@@ -1,7 +1,7 @@
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer/model';
+import { viewerModel } from 'entities/viewer';
+import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { isAdmin } from 'shared/lib/access/isAdmin';
@@ -15,9 +15,7 @@ type DonateBloodFormProps = {
   hospital: IHospital;
 };
 
-export function UpdateHospitalForm({ hospital }: DonateBloodFormProps) {
-  const user = useUnit($user);
-
+function UpdateHospitalForm({ hospital }: DonateBloodFormProps) {
   const [isShown, setIsShown] = useState(false);
 
   const { control, handleSubmit } = useForm();
@@ -32,7 +30,10 @@ export function UpdateHospitalForm({ hospital }: DonateBloodFormProps) {
 
   return (
     <div>
-      <IconButton onClick={() => setIsShown(true)} disabled={!isAdmin(user.role.value)}>
+      <IconButton
+        onClick={() => setIsShown(true)}
+        disabled={!!viewerModel.user && !isAdmin(viewerModel.user.role.value)}
+      >
         <EditIcon />
       </IconButton>
       <Dialog open={isShown} onClose={() => setIsShown(false)}>
@@ -64,3 +65,5 @@ export function UpdateHospitalForm({ hospital }: DonateBloodFormProps) {
     </div>
   );
 }
+
+export default observer(UpdateHospitalForm);

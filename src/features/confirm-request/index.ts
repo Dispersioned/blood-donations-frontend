@@ -1,2 +1,2 @@
-export * from './ConfirmRequest';
-export * as confirmRequestModel from './model';
+export { default as ConfirmRequest } from './ConfirmRequest';
+export * from './model';

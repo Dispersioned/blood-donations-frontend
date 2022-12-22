@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { useUnit } from 'effector-react';
+import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { IUser } from 'shared/types';
@@ -11,10 +11,8 @@ type DoctorsAutocompleteProps = {
   defaultValue?: IUser;
 };
 
-export function DoctorsAutocomplete({ control, defaultValue }: DoctorsAutocompleteProps) {
+function DoctorsAutocomplete({ control, defaultValue }: DoctorsAutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const doctors = useUnit(doctorsAutocompleteModel.$doctors);
 
   useEffect(() => {
     if (isOpen) doctorsAutocompleteModel.fetch();
@@ -31,7 +29,7 @@ export function DoctorsAutocomplete({ control, defaultValue }: DoctorsAutocomple
           {...field}
           onOpen={() => setIsOpen(true)}
           onClose={() => setIsOpen(false)}
-          options={doctors}
+          options={doctorsAutocompleteModel.doctors}
           getOptionLabel={(option) => {
             return option.username;
           }}
@@ -55,3 +53,5 @@ export function DoctorsAutocomplete({ control, defaultValue }: DoctorsAutocomple
     />
   );
 }
+
+export default observer(DoctorsAutocomplete);

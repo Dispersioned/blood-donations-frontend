@@ -1,3 +1,3 @@
-export * from './Home';
-export * as viewDonationsModel from './model/viewDonationsModel';
-export * as patientInfoModel from './model/patientInfoModel';
+export { default as Home } from './Home';
+export * from './model/patientInfoModel';
+export * from './model/viewDonationsModel';

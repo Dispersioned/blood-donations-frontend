@@ -1,32 +1,33 @@
-import { createEffect, createEvent, sample } from 'effector';
 import { messagerModel } from 'entities/messager';
 import { patientsModel } from 'entities/patients';
+import { makeAutoObservable } from 'mobx';
 import { registerPatient } from 'shared/api';
-import { passwordValidatorFactory } from 'shared/factory/passwordValidatorFactory';
 import { bloodMapper } from 'shared/lib/bloodMapper';
-import { IRegisterPatientDto, IRegisterPatientEvent } from 'shared/types';
+import { validatePassword } from 'shared/lib/validatePassword';
+import { IRegisterPatientEvent } from 'shared/types';
 
-export const register = createEvent<IRegisterPatientEvent>();
+class RegisterPatientModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const registerFx = createEffect(async (data: IRegisterPatientDto) => {
-  const { user } = await registerPatient(data);
-  return user;
-});
+  async register(data: IRegisterPatientEvent) {
+    if (!validatePassword(data)) {
+      messagerModel.error('Пароли не совпадают');
+      return;
+    }
 
-const { passwordsEqual } = passwordValidatorFactory(register);
+    const patient = await registerPatient({
+      ...data,
+      blood: bloodMapper(data.blood),
+      hospitalId: data.hospital.id,
+      doctorId: data.doctor.id,
+    });
+    if (patient) {
+      await patientsModel.fetch();
+      messagerModel.success('Пациент зарегистрирован');
+    }
+  }
+}
 
-registerFx.doneData.watch(() => {
-  messagerModel.showMessage({ type: 'success', msg: 'Пациент зарегистрирован' });
-  patientsModel.fetch();
-});
-
-sample({
-  clock: passwordsEqual,
-  fn: (data) => ({
-    ...data,
-    blood: bloodMapper(data.blood),
-    hospitalId: data.hospital.id,
-    doctorId: data.doctor.id,
-  }),
-  target: registerFx,
-});
+export const registerPatientModel = new RegisterPatientModel();

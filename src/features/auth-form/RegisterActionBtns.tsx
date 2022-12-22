@@ -1,9 +1,7 @@
 import { Button } from '@mui/material';
-import React from 'react';
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
-import { IRegisterUserDto } from 'shared/types';
 
 type RegisterActionBtnsProps = {
   handleSubmit: UseFormHandleSubmit<FieldValues>;

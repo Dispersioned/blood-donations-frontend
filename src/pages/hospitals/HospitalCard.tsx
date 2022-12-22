@@ -1,10 +1,9 @@
 import { Card, CardContent as MUICardContent, Typography, styled } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer/model';
+import { viewerModel } from 'entities/viewer';
 import { DeleteHospitalForm } from 'features/delete-hospital-form';
 import { DonateBloodForm } from 'features/donate-blood-form';
 import { UpdateHospitalForm } from 'features/update-hospital-form';
-import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { isAdmin } from 'shared/lib/access/isAdmin';
 import { IHospital } from 'shared/types';
 
@@ -17,9 +16,7 @@ type HospitalCardProps = {
   hospital: IHospital;
 };
 
-export function HospitalCard({ hospital }: HospitalCardProps) {
-  const user = useUnit($user);
-
+function HospitalCard({ hospital }: HospitalCardProps) {
   return (
     <Card>
       <CardContent>
@@ -29,7 +26,7 @@ export function HospitalCard({ hospital }: HospitalCardProps) {
         </div>
         <div style={{ display: 'flex', gap: 10, flexDirection: 'column' }}>
           <DonateBloodForm hospitalId={hospital.id} />
-          {isAdmin(user.role.value) && (
+          {viewerModel.user && isAdmin(viewerModel.user.role.value) && (
             <div style={{ display: 'flex' }}>
               <UpdateHospitalForm hospital={hospital} />
               <DeleteHospitalForm hospitalId={hospital.id} />
@@ -40,3 +37,5 @@ export function HospitalCard({ hospital }: HospitalCardProps) {
     </Card>
   );
 }
+
+export default observer(HospitalCard);

@@ -1,13 +1,13 @@
 import { Typography, styled } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer/model';
+import { viewerModel } from 'entities/viewer';
 import { CreateHospitalForm } from 'features/create-hospital-form';
+import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
 import { Layout } from 'shared/ui/layout';
 
-import { HospitalCard } from './HospitalCard';
-import { $hospitals, fetch } from './model';
+import HospitalCard from './HospitalCard';
+import { hospitalsModel } from './model';
 
 const HospitalsList = styled('div')`
   display: grid;
@@ -16,20 +16,17 @@ const HospitalsList = styled('div')`
   margin-top: 15px;
 `;
 
-export function Hospitals() {
+function Hospitals() {
   useEffect(() => {
-    fetch();
+    hospitalsModel.fetch();
   }, []);
-
-  const user = useUnit($user);
-  const hospitals = useUnit($hospitals);
 
   return (
     <Layout title="Больницы">
-      {isAdmin(user.role.value) && <CreateHospitalForm />}
+      {viewerModel.user && isAdmin(viewerModel.user.role.value) && <CreateHospitalForm />}
       <HospitalsList>
-        {hospitals && hospitals.length > 0 ? (
-          hospitals.map((hospital) => <HospitalCard key={hospital.id} hospital={hospital} />)
+        {hospitalsModel.hospitals && hospitalsModel.hospitals.length > 0 ? (
+          hospitalsModel.hospitals.map((hospital) => <HospitalCard key={hospital.id} hospital={hospital} />)
         ) : (
           <Typography>Больниц еще нет</Typography>
         )}
@@ -37,3 +34,5 @@ export function Hospitals() {
     </Layout>
   );
 }
+
+export default observer(Hospitals);

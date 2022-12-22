@@ -8,8 +8,8 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer/model';
+import { viewerModel } from 'entities/viewer';
+import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
 
@@ -19,22 +19,24 @@ type DeleteHospitalFormProps = {
   hospitalId: number;
 };
 
-export function DeleteHospitalForm({ hospitalId }: DeleteHospitalFormProps) {
-  const user = useUnit($user);
+function DeleteHospitalForm({ hospitalId }: DeleteHospitalFormProps) {
   const [isShown, setIsShown] = useState(false);
 
   return (
     <div>
-      <IconButton onClick={() => setIsShown(true)} disabled={!isAdmin(user.role.value)}>
+      <IconButton
+        onClick={() => setIsShown(true)}
+        disabled={!!viewerModel.user && !isAdmin(viewerModel.user.role.value)}
+      >
         <DeleteIcon />
       </IconButton>
       <Dialog open={isShown} onClose={() => setIsShown(false)}>
-        <DialogTitle>Удалить больницуц</DialogTitle>
+        <DialogTitle>Удалить больницу</DialogTitle>
         <DialogContent>
           <DialogContentText>Внимание: это действие необратимо</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => deleteHospitalModel.update({ hospitalId })} color="error">
+          <Button onClick={() => deleteHospitalModel.delete({ hospitalId })} color="error">
             Удалить
           </Button>
         </DialogActions>
@@ -42,3 +44,5 @@ export function DeleteHospitalForm({ hospitalId }: DeleteHospitalFormProps) {
     </div>
   );
 }
+
+export default observer(DeleteHospitalForm);

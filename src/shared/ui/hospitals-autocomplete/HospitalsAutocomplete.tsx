@@ -1,5 +1,5 @@
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
-import { useUnit } from 'effector-react';
+import { Autocomplete, TextField } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { IHospital } from 'shared/types';
@@ -11,10 +11,8 @@ type HospitalsAutocompleteProps = {
   defaultValue?: IHospital;
 };
 
-export function HospitalsAutocomplete({ control, defaultValue }: HospitalsAutocompleteProps) {
+function HospitalsAutocomplete({ control, defaultValue }: HospitalsAutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const hospitals = useUnit(hospitalsAutocompleteModel.$hospitals);
 
   useEffect(() => {
     if (isOpen) hospitalsAutocompleteModel.fetch();
@@ -31,7 +29,7 @@ export function HospitalsAutocomplete({ control, defaultValue }: HospitalsAutoco
           {...field}
           onOpen={() => setIsOpen(true)}
           onClose={() => setIsOpen(false)}
-          options={hospitals}
+          options={hospitalsAutocompleteModel.hospitals}
           getOptionLabel={(option) => {
             return option.name;
           }}
@@ -55,3 +53,5 @@ export function HospitalsAutocomplete({ control, defaultValue }: HospitalsAutoco
     />
   );
 }
+
+export default observer(HospitalsAutocomplete);

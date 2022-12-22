@@ -1,4 +1,5 @@
 import { Button, Tooltip } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 
 import { confirmRequestModel } from '.';
@@ -7,7 +8,7 @@ type ConfirmRequestProps = {
   requestId: number;
 };
 
-export function ConfirmRequest({ requestId }: ConfirmRequestProps) {
+function ConfirmRequest({ requestId }: ConfirmRequestProps) {
   return (
     <Button variant="contained" onClick={() => confirmRequestModel.confirm({ requestId })}>
       <Tooltip title="Назначенный больной получит кровь">
@@ -16,3 +17,5 @@ export function ConfirmRequest({ requestId }: ConfirmRequestProps) {
     </Button>
   );
 }
+
+export default observer(ConfirmRequest);

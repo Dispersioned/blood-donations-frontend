@@ -1,36 +1,39 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer/model';
+import { viewerModel } from 'entities/viewer';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { canDonate } from 'shared/lib/access/canDonate';
 import { FormLayout } from 'shared/ui/form-layout';
 import { Input } from 'shared/ui/input';
 
-import { donateBloodFormModel } from '.';
+import { donateBloodModel } from '.';
 
 type DonateBloodFormProps = React.PropsWithChildren<{
   hospitalId: number;
 }>;
 
-export function DonateBloodForm({ hospitalId }: DonateBloodFormProps) {
-  const user = useUnit($user);
-
+function DonateBloodForm({ hospitalId }: DonateBloodFormProps) {
   const [isShown, setIsShown] = useState(false);
 
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
+    if (!viewerModel.user) return;
     setIsShown(false);
-    donateBloodFormModel.donate({
+
+    donateBloodModel.donate({
       volume: +data.volume,
-      userId: user.id,
+      userId: viewerModel.user.id,
       hospitalId,
     });
   };
 
   return (
     <div>
-      <Button onClick={() => setIsShown(true)} disabled={!canDonate(user.role.value)} variant="contained">
+      <Button
+        onClick={() => setIsShown(true)}
+        disabled={!!viewerModel.user && !canDonate(viewerModel.user.role.value)}
+        variant="contained"
+      >
         Сдать кровь
       </Button>
       <Dialog open={isShown} onClose={() => setIsShown(false)}>
@@ -50,3 +53,5 @@ export function DonateBloodForm({ hospitalId }: DonateBloodFormProps) {
     </div>
   );
 }
+
+export default DonateBloodForm;

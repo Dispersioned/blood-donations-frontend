@@ -1,4 +1,5 @@
 import { viewerModel } from 'entities/viewer';
+import { observer } from 'mobx-react-lite';
 import { Auth } from 'pages/auth';
 import { Doctors } from 'pages/doctors';
 import { Home } from 'pages/home';
@@ -9,16 +10,15 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from 'shared/config/routes';
 
-import { PrivateRoute } from './PrivateRoute';
-import { PublicRoute } from './PublicRoute';
-import { RoleRoute } from './RoleRoute';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+import RoleRoute from './RoleRoute';
 
-export function Routing() {
+function Routing() {
   useEffect(() => {
     viewerModel.checkToken();
   }, []);
 
-  // TODO create v6.4 router instead
   return (
     <Routes>
       <Route element={<PrivateRoute />}>
@@ -40,3 +40,5 @@ export function Routing() {
     </Routes>
   );
 }
+
+export default observer(Routing);

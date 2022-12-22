@@ -8,19 +8,18 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer/model';
+import { viewerModel } from 'entities/viewer';
+import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
 import { IDeleteUserDto } from 'shared/types';
 
 type DeleteUserFormProps = {
   userId: number;
-  handler: (payload: IDeleteUserDto) => IDeleteUserDto;
+  handler: (payload: IDeleteUserDto) => void;
 };
 
-export function DeleteUserForm({ userId, handler }: DeleteUserFormProps) {
-  const user = useUnit($user);
+function DeleteUserForm({ userId, handler }: DeleteUserFormProps) {
   const [isShown, setIsShown] = useState(false);
 
   const onDelete = async () => {
@@ -30,7 +29,7 @@ export function DeleteUserForm({ userId, handler }: DeleteUserFormProps) {
 
   return (
     <div>
-      {isAdmin(user.role.value) && (
+      {viewerModel.user && isAdmin(viewerModel.user.role.value) && (
         <IconButton onClick={() => setIsShown(true)}>
           <DeleteIcon />
         </IconButton>
@@ -49,3 +48,5 @@ export function DeleteUserForm({ userId, handler }: DeleteUserFormProps) {
     </div>
   );
 }
+
+export default observer(DeleteUserForm);

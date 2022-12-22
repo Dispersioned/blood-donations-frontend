@@ -1,28 +1,25 @@
-import { Button, Typography } from '@mui/material';
-import { useUnit } from 'effector-react';
+import { Typography } from '@mui/material';
 import { patientsModel } from 'entities/patients';
-import { DeleteUserForm, deleteUserFormModel } from 'features/delete-user-form';
+import { DeleteUserForm, deleteUserModel } from 'features/delete-user-form';
 import { EditPatientForm } from 'features/edit-patient-form';
 import { RegisterPatientForm } from 'features/register-patient-form';
+import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Layout } from 'shared/ui/layout';
 
 import { groupPatientsByHospitals } from './lib/groupPatientsByHospitals';
 
-export function Patients() {
+function Patients() {
   useEffect(() => {
     patientsModel.fetch();
   }, []);
 
-  const patients = useUnit(patientsModel.$patients);
-  const deletePatient = useUnit(deleteUserFormModel.deletePatient);
-
   return (
     <Layout title="Пациенты">
       <RegisterPatientForm />
-      {patients.length > 0 ? (
+      {patientsModel.patients.length > 0 ? (
         <div style={{ marginTop: 15 }}>
-          {groupPatientsByHospitals(patients).map(([hospitalId, data]) => (
+          {groupPatientsByHospitals(patientsModel.patients).map(([hospitalId, data]) => (
             <div key={hospitalId}>
               <Typography variant="h5" fontWeight="bold">
                 {data.hospital.name}
@@ -45,7 +42,7 @@ export function Patients() {
                     }}
                   >
                     <EditPatientForm patient={patient} />
-                    <DeleteUserForm userId={patient.user.id} handler={deletePatient} />
+                    <DeleteUserForm userId={patient.user.id} handler={deleteUserModel.deletePatient} />
                   </div>
                 </div>
               ))}
@@ -58,3 +55,5 @@ export function Patients() {
     </Layout>
   );
 }
+
+export default observer(Patients);

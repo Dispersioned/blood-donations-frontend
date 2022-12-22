@@ -1,1 +1,1 @@
-export * from './Routing';
+export { default as Routing } from './Routing';

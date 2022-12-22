@@ -1,25 +1,20 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { makeAutoObservable } from 'mobx';
 import { fetchAllRequests } from 'shared/api';
 import { IRequestWithInfo } from 'shared/types';
 
-export const fetch = createEvent();
+class RequestsModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-export const $requests = createStore<IRequestWithInfo[]>([]);
+  requests: IRequestWithInfo[] = [];
 
-const fetchFx = createEffect(async () => {
-  const requests = await fetchAllRequests();
-  return requests;
-});
+  async fetch() {
+    const requests = await fetchAllRequests();
+    if (requests) {
+      this.requests = requests;
+    }
+  }
+}
 
-sample({
-  clock: fetch,
-  filter: fetchFx.pending.map((is) => !is),
-  target: fetchFx,
-});
-
-sample({
-  clock: fetchFx.doneData,
-  target: $requests,
-});
-
-$requests.watch(console.log);
+export const requestsModel = new RequestsModel();

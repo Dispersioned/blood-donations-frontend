@@ -1,19 +1,21 @@
 import { Alert, Snackbar } from '@mui/material';
-import { useUnit } from 'effector-react';
+import { observer } from 'mobx-react-lite';
 
-import { $msg, $shown, $type, closeMessage } from '../model';
+import { messagerModel } from '..';
 
-export function Message() {
-  const msg = useUnit($msg);
-  const type = useUnit($type);
-  const shown = useUnit($shown);
-  const close = useUnit(closeMessage);
-
+function Message() {
   return (
-    <Snackbar open={shown} onClose={close}>
-      <Alert onClose={close} variant="filled" severity={type || undefined} style={{ fontSize: 17 }}>
-        {msg}
+    <Snackbar open={messagerModel.shown} onClose={messagerModel.closeMessage}>
+      <Alert
+        onClose={messagerModel.closeMessage}
+        variant="filled"
+        severity={messagerModel.type || undefined}
+        style={{ fontSize: 17 }}
+      >
+        {messagerModel.msg}
       </Alert>
     </Snackbar>
   );
 }
+
+export default observer(Message);

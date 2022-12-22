@@ -1,23 +1,20 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { makeAutoObservable } from 'mobx';
 import { fetchAllHospitals } from 'shared/api';
 import { IHospital } from 'shared/types';
 
-export const fetch = createEvent();
+class HospitalsAutocompleteModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-export const fetchFx = createEffect(async () => {
-  const hospitals = await fetchAllHospitals();
-  return hospitals;
-});
+  hospitals: IHospital[] = [];
 
-export const $hospitals = createStore<IHospital[]>([]);
+  async fetch() {
+    const hospitals = await fetchAllHospitals();
+    if (hospitals) {
+      this.hospitals = hospitals;
+    }
+  }
+}
 
-sample({
-  clock: fetch,
-  filter: fetchFx.pending.map((is) => !is),
-  target: fetchFx,
-});
-
-sample({
-  clock: fetchFx.doneData,
-  target: $hospitals,
-});
+export const hospitalsAutocompleteModel = new HospitalsAutocompleteModel();

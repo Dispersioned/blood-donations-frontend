@@ -1,23 +1,20 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { makeAutoObservable } from 'mobx';
 import { fetchAllPatients } from 'shared/api';
 import { IPatient } from 'shared/types';
 
-export const fetch = createEvent();
+class PatientsModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-export const $patients = createStore<IPatient[]>([]);
+  patients: IPatient[] = [];
 
-const fetchFx = createEffect(async () => {
-  const donations = await fetchAllPatients();
-  return donations;
-});
+  async fetch() {
+    const patients = await fetchAllPatients();
+    if (patients) {
+      this.patients = patients;
+    }
+  }
+}
 
-sample({
-  clock: fetch,
-  filter: fetchFx.pending.map((is) => !is),
-  target: fetchFx,
-});
-
-sample({
-  clock: fetchFx.doneData,
-  target: $patients,
-});
+export const patientsModel = new PatientsModel();

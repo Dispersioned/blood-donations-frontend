@@ -2,7 +2,7 @@ import { Container, Typography, styled } from '@mui/material';
 import { Message } from 'entities/messager';
 import React from 'react';
 
-import { Aside } from './Aside';
+import Aside from './Aside';
 
 type LayoutProps = React.PropsWithChildren<{
   title?: string;

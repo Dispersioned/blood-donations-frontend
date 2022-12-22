@@ -1,40 +1,28 @@
-import { AxiosError } from 'axios';
-import { createEffect, createEvent, sample } from 'effector';
 import { doctorsModel } from 'entities/doctors';
 import { messagerModel } from 'entities/messager';
 import { patientsModel } from 'entities/patients';
+import { makeAutoObservable } from 'mobx';
 import { deleteDoctor as deleteDoctorApi, deletePatient as deletePatientApi } from 'shared/api';
 import { IDeleteUserDto } from 'shared/types';
 
-export const deleteDoctor = createEvent<IDeleteUserDto>();
-export const deletePatient = createEvent<IDeleteUserDto>();
+class DeleteUserModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const deleteDoctorFx = createEffect(async (data: IDeleteUserDto) => {
-  const result = await deleteDoctorApi(data);
-  return result;
-});
+  async deletePatient(data: IDeleteUserDto) {
+    const result = await deletePatientApi(data);
+    setTimeout(async () => {
+      await patientsModel.fetch();
+      messagerModel.success('Пациент удален');
+    }, 100);
+  }
 
-const deletePatientFx = createEffect(async (data: IDeleteUserDto) => {
-  const result = await deletePatientApi(data);
-  return result;
-});
+  async deleteDoctor(data: IDeleteUserDto) {
+    const result = await deleteDoctorApi(data);
+    await doctorsModel.fetch();
+    messagerModel.success('Доктор удален');
+  }
+}
 
-sample({
-  clock: deleteDoctor,
-  target: deleteDoctorFx,
-});
-
-sample({
-  clock: deletePatient,
-  target: deletePatientFx,
-});
-
-deleteDoctorFx.doneData.watch(async () => {
-  await doctorsModel.fetch();
-  messagerModel.showMessage({ type: 'success', msg: 'Доктор удален' });
-});
-
-deletePatientFx.doneData.watch(async () => {
-  await patientsModel.fetch();
-  messagerModel.showMessage({ type: 'success', msg: 'Пациент удален' });
-});
+export const deleteUserModel = new DeleteUserModel();

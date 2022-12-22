@@ -1,1 +1,1 @@
-export * from './Doctors';
+export { default as Doctors } from './Doctors';

@@ -1,6 +1,5 @@
 import { Card, Typography, styled } from '@mui/material';
-import { useUnit } from 'effector-react';
-import { $user } from 'entities/viewer/model';
+import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { formatDate } from 'shared/lib/formatDate';
 
@@ -27,20 +26,21 @@ const DonationCard = styled(Card)`
   padding: 10px 15px;
 `;
 
-export function ViewDonations() {
-  const user = useUnit($user);
-  const donations = useUnit(viewDonationsModel.$donations);
+type ViewDonationsProps = {
+  userId: number;
+};
 
+function ViewDonations({ userId }: ViewDonationsProps) {
   useEffect(() => {
-    viewDonationsModel.fetch({ userId: user.id });
-  }, [user]);
+    viewDonationsModel.fetch({ userId });
+  }, [userId]);
 
   return (
     <Wrapper>
       <Typography variant="h4">Сданная кровь</Typography>
-      {donations.length > 0 ? (
+      {viewDonationsModel.donations.length > 0 ? (
         <List>
-          {donations.map((donation) => (
+          {viewDonationsModel.donations.map((donation) => (
             <DonationCard key={donation.id}>
               <div>
                 <Typography variant="h6">{donation.hospitalBlood.hospital.name}</Typography>
@@ -58,3 +58,5 @@ export function ViewDonations() {
     </Wrapper>
   );
 }
+
+export default observer(ViewDonations);

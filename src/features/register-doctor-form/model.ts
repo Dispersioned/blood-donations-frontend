@@ -1,27 +1,28 @@
-import { createEffect, createEvent, sample } from 'effector';
 import { doctorsModel } from 'entities/doctors';
 import { messagerModel } from 'entities/messager';
+import { makeAutoObservable } from 'mobx';
 import { registerDoctor } from 'shared/api';
-import { passwordValidatorFactory } from 'shared/factory/passwordValidatorFactory';
 import { registerFieldsMapper } from 'shared/lib/registerFieldsMapper';
-import { IRegisterEvent, IRegisterUserDto } from 'shared/types';
+import { validatePassword } from 'shared/lib/validatePassword';
+import { IRegisterEvent } from 'shared/types';
 
-export const register = createEvent<IRegisterEvent>();
+class RegisterDoctorModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const registerFx = createEffect(async (data: IRegisterUserDto) => {
-  const { user } = await registerDoctor(data);
-  return user;
-});
+  async register(data: IRegisterEvent) {
+    if (!validatePassword(data)) {
+      messagerModel.error('Пароли не совпадают');
+      return;
+    }
 
-const { passwordsEqual } = passwordValidatorFactory(register);
+    const doctor = await registerDoctor(registerFieldsMapper(data));
+    if (doctor) {
+      await doctorsModel.fetch();
+      messagerModel.success('Доктор зарегистрирован');
+    }
+  }
+}
 
-registerFx.doneData.watch((doctor) => {
-  messagerModel.showMessage({ type: 'success', msg: 'Доктор зарегистрирован' });
-  doctorsModel.add(doctor);
-});
-
-sample({
-  clock: passwordsEqual,
-  fn: registerFieldsMapper,
-  target: registerFx,
-});
+export const registerDoctorModel = new RegisterDoctorModel();

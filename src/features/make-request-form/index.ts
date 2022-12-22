@@ -1,2 +1,2 @@
-export * from './MakeRequestForm';
-export * as makeRequestFormModel from './model';
+export { default as MakeRequestForm } from './MakeRequestForm';
+export * from './model';

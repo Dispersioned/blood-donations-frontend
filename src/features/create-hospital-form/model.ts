@@ -1,22 +1,19 @@
-import { createEffect, createEvent, sample } from 'effector';
 import { messagerModel } from 'entities/messager';
+import { makeAutoObservable } from 'mobx';
 import { hospitalsModel } from 'pages/hospitals';
 import { createHospital } from 'shared/api';
 import { ICreateHospitalDto } from 'shared/types';
 
-export const create = createEvent<ICreateHospitalDto>();
+class CreateHospitalModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const createFx = createEffect(async (data: ICreateHospitalDto) => {
-  const hospital = await createHospital(data);
-  return hospital;
-});
+  async create(data: ICreateHospitalDto) {
+    await createHospital(data);
+    await hospitalsModel.fetch();
+    messagerModel.success('Больница создана');
+  }
+}
 
-sample({
-  clock: create,
-  target: createFx,
-});
-
-createFx.doneData.watch(() => {
-  messagerModel.showMessage({ type: 'success', msg: 'Больница создана' });
-  hospitalsModel.fetch();
-});
+export const createHospitalModel = new CreateHospitalModel();

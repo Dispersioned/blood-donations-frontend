@@ -1,4 +1,4 @@
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { makeAutoObservable } from 'mobx';
 import { fetchPatientInfo } from 'shared/api';
 import { IPatient } from 'shared/types';
 
@@ -6,21 +6,17 @@ type IFetchPayload = {
   patientId: number;
 };
 
-export const fetch = createEvent<IFetchPayload>();
-export const $patient = createStore<IPatient | null>(null);
+class PatientInfoModel {
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-const fetchFx = createEffect(async ({ patientId }: IFetchPayload) => {
-  const patientInfo = await fetchPatientInfo(patientId);
-  return patientInfo;
-});
+  patient: IPatient | null = null;
 
-sample({
-  clock: fetch,
-  filter: fetchFx.pending.map((is) => !is),
-  target: fetchFx,
-});
+  async fetch({ patientId }: IFetchPayload) {
+    const patientInfo = await fetchPatientInfo(patientId);
+    this.patient = patientInfo;
+  }
+}
 
-sample({
-  clock: fetchFx.doneData,
-  target: $patient,
-});
+export const patientInfoModel = new PatientInfoModel();

@@ -1,2 +1,2 @@
-export * from './UpdateHospitalForm';
-export * as updateHospitalModel from './model';
+export { default as UpdateHospitalForm } from './UpdateHospitalForm';
+export * from './model';
