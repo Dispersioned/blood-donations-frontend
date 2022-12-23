@@ -1,4 +1,5 @@
 import { Typography, styled } from '@mui/material';
+import { hospitalsModel } from 'entities/hospitals';
 import { viewerModel } from 'entities/viewer';
 import { CreateHospitalForm } from 'features/create-hospital-form';
 import { observer } from 'mobx-react-lite';
@@ -7,7 +8,6 @@ import { isAdmin } from 'shared/lib/access/isAdmin';
 import { Layout } from 'shared/ui/layout';
 
 import HospitalCard from './HospitalCard';
-import { hospitalsModel } from './model';
 
 const HospitalsList = styled('div')`
   display: grid;

@@ -1,10 +1,9 @@
 import { Autocomplete, TextField } from '@mui/material';
+import { hospitalsModel } from 'entities/hospitals';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { IHospital } from 'shared/types';
-
-import { hospitalsAutocompleteModel } from '.';
 
 type HospitalsAutocompleteProps = {
   control: Control<FieldValues, any>;
@@ -15,7 +14,7 @@ function HospitalsAutocomplete({ control, defaultValue }: HospitalsAutocompleteP
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (isOpen) hospitalsAutocompleteModel.fetch();
+    if (isOpen) hospitalsModel.fetch();
   }, [isOpen]);
 
   return (
@@ -29,7 +28,7 @@ function HospitalsAutocomplete({ control, defaultValue }: HospitalsAutocompleteP
           {...field}
           onOpen={() => setIsOpen(true)}
           onClose={() => setIsOpen(false)}
-          options={hospitalsAutocompleteModel.hospitals}
+          options={hospitalsModel.hospitals}
           getOptionLabel={(option) => {
             return option.name;
           }}

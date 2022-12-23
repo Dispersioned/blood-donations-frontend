@@ -1,10 +1,9 @@
 import { Autocomplete, TextField } from '@mui/material';
+import { doctorsModel } from 'entities/doctors';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { IUser } from 'shared/types';
-
-import { doctorsAutocompleteModel } from '.';
 
 type DoctorsAutocompleteProps = {
   control: Control<FieldValues, any>;
@@ -15,7 +14,7 @@ function DoctorsAutocomplete({ control, defaultValue }: DoctorsAutocompleteProps
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (isOpen) doctorsAutocompleteModel.fetch();
+    if (isOpen) doctorsModel.fetch();
   }, [isOpen]);
 
   return (
@@ -29,7 +28,7 @@ function DoctorsAutocomplete({ control, defaultValue }: DoctorsAutocompleteProps
           {...field}
           onOpen={() => setIsOpen(true)}
           onClose={() => setIsOpen(false)}
-          options={doctorsAutocompleteModel.doctors}
+          options={doctorsModel.doctors}
           getOptionLabel={(option) => {
             return option.username;
           }}

@@ -1,5 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { hospitalsModel } from 'entities/hospitals';
 import { viewerModel } from 'entities/viewer';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
@@ -8,8 +9,6 @@ import { isAdmin } from 'shared/lib/access/isAdmin';
 import { IHospital } from 'shared/types';
 import { FormLayout } from 'shared/ui/form-layout';
 import { Input } from 'shared/ui/input';
-
-import { updateHospitalModel } from '.';
 
 type DonateBloodFormProps = {
   hospital: IHospital;
@@ -21,7 +20,7 @@ function UpdateHospitalForm({ hospital }: DonateBloodFormProps) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsShown(false);
-    updateHospitalModel.update({
+    hospitalsModel.update({
       hospitalId: hospital.id,
       name: data.name,
       location: data.location,

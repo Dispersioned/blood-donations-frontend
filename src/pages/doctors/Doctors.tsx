@@ -2,8 +2,8 @@ import { Typography } from '@mui/material';
 import { doctorsModel } from 'entities/doctors';
 import { viewerModel } from 'entities/viewer';
 import { DeleteUserForm, deleteUserModel } from 'features/delete-user-form';
-import { EditDoctorForm } from 'features/edit-doctor-form';
 import { RegisterDoctorForm } from 'features/register-doctor-form';
+import { UpdateDoctorForm } from 'features/update-doctor-form';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
@@ -31,7 +31,7 @@ function Doctors() {
               <Typography fontSize={22}>{i + 1}.</Typography>
               <Typography fontSize={22}>{doctor.username}</Typography>
               <div style={{ display: 'flex' }}>
-                <EditDoctorForm doctor={doctor} />
+                <UpdateDoctorForm doctor={doctor} />
                 <DeleteUserForm userId={doctor.id} handler={deleteUserModel.deleteDoctor} />
               </div>
             </div>

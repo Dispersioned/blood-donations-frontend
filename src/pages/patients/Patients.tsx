@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material';
 import { patientsModel } from 'entities/patients';
 import { DeleteUserForm, deleteUserModel } from 'features/delete-user-form';
-import { EditPatientForm } from 'features/edit-patient-form';
 import { RegisterPatientForm } from 'features/register-patient-form';
+import { UpdatePatientForm } from 'features/update-patient-form';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Layout } from 'shared/ui/layout';
@@ -41,7 +41,7 @@ function Patients() {
                       display: 'flex',
                     }}
                   >
-                    <EditPatientForm patient={patient} />
+                    <UpdatePatientForm patient={patient} />
                     <DeleteUserForm userId={patient.user.id} handler={deleteUserModel.deletePatient} />
                   </div>
                 </div>

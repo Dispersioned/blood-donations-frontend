@@ -8,12 +8,11 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
+import { hospitalsModel } from 'entities/hospitals';
 import { viewerModel } from 'entities/viewer';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { isAdmin } from 'shared/lib/access/isAdmin';
-
-import { deleteHospitalModel } from '.';
 
 type DeleteHospitalFormProps = {
   hospitalId: number;
@@ -36,7 +35,7 @@ function DeleteHospitalForm({ hospitalId }: DeleteHospitalFormProps) {
           <DialogContentText>Внимание: это действие необратимо</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => deleteHospitalModel.delete({ hospitalId })} color="error">
+          <Button onClick={() => hospitalsModel.delete({ hospitalId })} color="error">
             Удалить
           </Button>
         </DialogActions>

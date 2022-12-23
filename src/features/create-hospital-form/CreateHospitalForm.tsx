@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { hospitalsModel } from 'entities/hospitals';
 import { viewerModel } from 'entities/viewer';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
@@ -7,15 +8,13 @@ import { isAdmin } from 'shared/lib/access/isAdmin';
 import { FormLayout } from 'shared/ui/form-layout';
 import { Input } from 'shared/ui/input';
 
-import { createHospitalModel } from '.';
-
 function CreateHospitalForm() {
   const [isShown, setIsShown] = useState(false);
 
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsShown(false);
-    createHospitalModel.create({
+    hospitalsModel.create({
       name: data.name,
       location: data.location,
     });

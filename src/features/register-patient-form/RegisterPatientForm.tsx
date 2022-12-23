@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { patientsModel } from 'entities/patients';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,15 +8,13 @@ import { FormLayout } from 'shared/ui/form-layout';
 import { HospitalsAutocomplete } from 'shared/ui/hospitals-autocomplete';
 import { RegisterFields } from 'shared/ui/register-fields';
 
-import { registerPatientModel } from '.';
-
 function RegisterPatientForm() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsOpen(false);
-    registerPatientModel.register(data);
+    patientsModel.register(data);
   };
 
   return (

@@ -1,6 +1,9 @@
+import { messagerModel } from 'entities/messager';
 import { makeAutoObservable } from 'mobx';
-import { fetchDoctors } from 'shared/api';
-import { IUser } from 'shared/types';
+import { fetchDoctors, registerDoctor, updateDoctor } from 'shared/api';
+import { registerFieldsMapper } from 'shared/lib/registerFieldsMapper';
+import { validatePassword } from 'shared/lib/validatePassword';
+import { IRegisterEvent, IUpdateDoctorDto, IUser } from 'shared/types';
 
 class DoctorsModel {
   constructor() {
@@ -14,6 +17,25 @@ class DoctorsModel {
     if (doctors) {
       this.doctors = doctors;
     }
+  }
+
+  async register(data: IRegisterEvent) {
+    if (!validatePassword(data)) {
+      messagerModel.error('Пароли не совпадают');
+      return;
+    }
+
+    const doctor = await registerDoctor(registerFieldsMapper(data));
+    if (doctor) {
+      await this.fetch();
+      messagerModel.success('Доктор зарегистрирован');
+    }
+  }
+
+  async update(data: IUpdateDoctorDto) {
+    await updateDoctor(data);
+    await this.fetch();
+    messagerModel.success('Данные доктора изменены');
   }
 }
 

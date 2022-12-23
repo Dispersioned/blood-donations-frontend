@@ -1,6 +1,7 @@
+import { messagerModel } from 'entities/messager';
 import { makeAutoObservable } from 'mobx';
-import { fetchAllRequests } from 'shared/api';
-import { IRequestWithInfo } from 'shared/types';
+import { confirmRequest, fetchAllRequests, makeDonationRequest } from 'shared/api';
+import { IConfirmRequestDto, ICreateRequestDto, IRequestWithInfo } from 'shared/types';
 
 class RequestsModel {
   constructor() {
@@ -14,6 +15,17 @@ class RequestsModel {
     if (requests) {
       this.requests = requests;
     }
+  }
+
+  async confirm(data: IConfirmRequestDto) {
+    await confirmRequest(data);
+    await this.fetch();
+    messagerModel.success('Запрос подтвержден');
+  }
+
+  async makeRequest(data: ICreateRequestDto) {
+    await makeDonationRequest(data);
+    messagerModel.success('Запрос создан');
   }
 }
 

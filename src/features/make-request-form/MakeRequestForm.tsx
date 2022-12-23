@@ -1,12 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, styled } from '@mui/material';
+import { requestsModel } from 'entities/requests';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IPatient } from 'shared/types';
 import { FormLayout } from 'shared/ui/form-layout';
 import { Input } from 'shared/ui/input';
-
-import { makeRequestModel } from '.';
 
 type MakeRequestFormProps = {
   patient: IPatient;
@@ -22,7 +21,7 @@ function MakeRequestForm({ patient }: MakeRequestFormProps) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsShown(false);
-    makeRequestModel.donate({
+    requestsModel.makeRequest({
       patientId: patient.id,
       volume: +data.volume,
     });

@@ -1,5 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { patientsModel } from 'entities/patients';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,19 +10,17 @@ import { FormLayout } from 'shared/ui/form-layout';
 import { HospitalsAutocomplete } from 'shared/ui/hospitals-autocomplete';
 import { Input } from 'shared/ui/input';
 
-import { updatePatientModel } from '.';
-
 type EditPatientFormProps = {
   patient: IPatient;
 };
 
-function EditPatientForm({ patient }: EditPatientFormProps) {
+function UpdatePatientForm({ patient }: EditPatientFormProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsOpen(false);
-    updatePatientModel.update({
+    patientsModel.update({
       patientId: patient.id,
       username: data.username,
       doctorId: data.doctor.id,
@@ -60,4 +59,4 @@ function EditPatientForm({ patient }: EditPatientFormProps) {
   );
 }
 
-export default observer(EditPatientForm);
+export default observer(UpdatePatientForm);

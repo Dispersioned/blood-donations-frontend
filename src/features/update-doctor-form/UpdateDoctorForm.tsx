@@ -1,5 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { doctorsModel } from 'entities/doctors';
 import { viewerModel } from 'entities/viewer';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
@@ -9,19 +10,17 @@ import { IUser } from 'shared/types';
 import { FormLayout } from 'shared/ui/form-layout';
 import { Input } from 'shared/ui/input';
 
-import { editDoctorModel } from '.';
-
 type EditDoctorFormProps = {
   doctor: IUser;
 };
 
-function EditDoctorForm({ doctor }: EditDoctorFormProps) {
+function UpdateDoctorForm({ doctor }: EditDoctorFormProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { control, handleSubmit } = useForm();
   const onSubmit = (data: any) => {
     setIsOpen(false);
-    editDoctorModel.update({
+    doctorsModel.update({
       userId: doctor.id,
       username: data.username,
     });
@@ -58,4 +57,4 @@ function EditDoctorForm({ doctor }: EditDoctorFormProps) {
   );
 }
 
-export default observer(EditDoctorForm);
+export default observer(UpdateDoctorForm);
