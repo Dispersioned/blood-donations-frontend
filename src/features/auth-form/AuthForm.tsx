@@ -1,5 +1,5 @@
 import { Typography, styled } from '@mui/material';
-import { authModel } from 'pages/auth';
+import { viewerModel } from 'entities/viewer';
 import { useForm } from 'react-hook-form';
 import { FormLayout } from 'shared/ui/form-layout';
 import { RegisterFields } from 'shared/ui/register-fields';
@@ -20,8 +20,8 @@ export const ActionBtns = styled('div')`
 
 export function AuthForm({ type }: AuthFormProps) {
   const { control, handleSubmit } = useForm();
-  const onLogin = (data: any) => authModel.login(data);
-  const onRegister = (data: any) => authModel.register(data);
+  const onLogin = (data: any) => viewerModel.login(data);
+  const onRegister = (data: any) => viewerModel.register(data);
 
   return (
     <FormLayout>

@@ -1,6 +1,8 @@
+import { messagerModel } from 'entities/messager';
 import { makeAutoObservable } from 'mobx';
 import { fetchMe, loginUser, registerUser } from 'shared/api';
-import { ILoginUserDto, IRegisterUserDto, IUser } from 'shared/types';
+import { registerFieldsMapper } from 'shared/lib/registerFieldsMapper';
+import { ILoginUserDto, IRegisterEvent, IRegisterUserDto, IUser } from 'shared/types';
 
 class ViewerModel {
   constructor() {
@@ -15,16 +17,18 @@ class ViewerModel {
     const res = await loginUser(data);
     if (res) {
       localStorage.setItem('token', res.token);
+      this.setupViewer(res.user);
+      messagerModel.success('Успешный вход в аккаунт');
     }
-    return res?.user;
   };
 
-  register = async (data: IRegisterUserDto) => {
-    const res = await registerUser(data);
+  register = async (data: IRegisterEvent) => {
+    const res = await registerUser(registerFieldsMapper(data));
     if (res) {
       localStorage.setItem('token', res.token);
+      this.setupViewer(res.user);
+      messagerModel.success('Вы успешно зарегистрировались');
     }
-    return res?.user;
   };
 
   setupViewer = (user: IUser) => {
